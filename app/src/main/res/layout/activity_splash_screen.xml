@@ -7,4 +7,14 @@
     android:background="@color/colorPrimary"
     tools:context=".SplashScreenActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="240dp"
+        android:layout_height="160dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/beer_glass_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
