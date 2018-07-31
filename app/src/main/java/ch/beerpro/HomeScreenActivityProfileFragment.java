@@ -24,9 +24,6 @@ import androidx.fragment.app.Fragment;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class HomeScreenActivityProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";

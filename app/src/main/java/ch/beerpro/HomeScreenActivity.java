@@ -3,13 +3,10 @@ package ch.beerpro;
 import android.os.Bundle;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -17,7 +14,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 public class HomeScreenActivity extends AppCompatActivity {
 
@@ -42,9 +38,9 @@ public class HomeScreenActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager, TabLayout tabLayout) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new HomeScreenActivityFragment());
-        adapter.addFrag(new HomeScreenActivityFragment());
-        adapter.addFrag(new HomeScreenActivityProfileFragment());
+        adapter.addFragment(new HomeScreenActivitySearchFragment());
+        adapter.addFragment(new HomeScreenActivityFeedFragment());
+        adapter.addFragment(new HomeScreenActivityProfileFragment());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_search_black_24dp);
