@@ -44,7 +44,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new HomeScreenActivityFragment());
         adapter.addFrag(new HomeScreenActivityFragment());
-        adapter.addFrag(new HomeScreenActivityFragment());
+        adapter.addFrag(new HomeScreenActivityProfileFragment());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_search_black_24dp);
