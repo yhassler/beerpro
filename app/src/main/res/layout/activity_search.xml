@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+    tools:context=".search.SearchActivity">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -34,25 +34,41 @@
                 android:layout_height="match_parent"
                 android:layout_margin="8dp"
                 android:padding="8dp"
-                app:cardElevation="2dp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="5dp">
+                app:cardElevation="2dp">
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    app:srcCompat="@drawable/ic_search_black_24dp" />
-
-                <EditText
-                    android:id="@+id/searchEditText"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="40dp"
-                    android:background="@android:color/transparent"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/searchImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        app:srcCompat="@drawable/ic_search_black_24dp" />
+
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/searchImageView"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text" />
+
+                    <ImageView
+                        android:id="@+id/clearFilterButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="8dp"
+                        android:tint="?attr/colorAccent"
+                        app:srcCompat="@drawable/ic_close_white_24px" />
+                </RelativeLayout>
+
             </androidx.cardview.widget.CardView>
         </androidx.appcompat.widget.Toolbar>
 

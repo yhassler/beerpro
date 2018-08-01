@@ -22,7 +22,7 @@
             android:name=".HomeScreenActivity"
             android:label="@string/title_activity_home_screen"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".search.SearchActivity"></activity>
     </application>
 
 </manifest>
