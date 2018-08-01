@@ -18,48 +18,56 @@ public class DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    public static final List<SearchResult> ITEMS = new ArrayList<>();
+    public static final List<Beer> ITEMS = new ArrayList<>();
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, SearchResult> ITEM_MAP = new HashMap<>();
+    public static final Map<String, Beer> ITEM_MAP = new HashMap<>();
 
     private static final int COUNT = 25;
 
     static {
-        addItem(new SearchResult("0", "Schützengarten", "Lager Hell", "Lager",
-                new Uri.Builder().scheme("http").path("shop.gedex.ch/shop/resources/product_images_klein/16831_kl.jpg")
-                        .build(), 3, 2));
-        addItem(new SearchResult("1", "Appenzeller", "IPA", "India Pale Ale", new Uri.Builder().scheme("https")
-                .path("res.cloudinary.com/ratebeer/image/upload/w_152,h_309,c_pad,d_beer_img_default.png,f_auto/beer_380506")
-                .build(), 5, 50));
+        addItem(new Beer("0", "Schützengarten", "Lager Hell", "Lager",
+                "http://shop.gedex.ch/shop/resources/product_images_klein/16831_kl.jpg", 3, 2));
+        addItem(new Beer("1", "Appenzeller", "IPA", "India Pale Ale",
+                "https://res.cloudinary.com/ratebeer/image/upload/w_152,h_309,c_pad,d_beer_img_default.png,f_auto/beer_380506",
+                5, 50));
     }
 
-    private static void addItem(SearchResult item) {
+    private static void addItem(Beer item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
 
-    public static class SearchResult {
-        public final String id;
-        public final String subtitle;
-        public final String title;
-        public final String category;
-        public final Uri photo;
-        public final int rating;
-        public final int numberOfRatings;
+    public static class Beer {
+        public String id;
+        public String manufacturer;
+        public  String name;
+        public  String category;
+        public  String photo;
+        public  int avgRating;
+        public  int numRatings;
 
-        public SearchResult(String id, String subtitle, String title, String category, Uri photo, int rating,
-                            int numberOfRatings) {
+        public Beer() { } // Needed for Firebase
+
+        public Beer(String id, String manufacturer, String name, String category, String photo, int avgRating,
+                    int numRatings) {
             this.id = id;
-            this.subtitle = subtitle;
-            this.title = title;
+            this.manufacturer = manufacturer;
+            this.name = name;
             this.category = category;
             this.photo = photo;
-            this.rating = rating;
-            this.numberOfRatings = numberOfRatings;
+            this.avgRating = avgRating;
+            this.numRatings = numRatings;
+        }
+
+        @Override
+        public String toString() {
+            return "Beer{" + "id='" + id + '\'' + ", manufacturer='" + manufacturer + '\'' + ", name='" + name + '\'' +
+                    ", category='" + category + '\'' + ", avgRating=" + avgRating +
+                    ", numRatings=" + numRatings + '}';
         }
     }
 }

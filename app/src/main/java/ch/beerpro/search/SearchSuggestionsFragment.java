@@ -1,7 +1,6 @@
 package ch.beerpro.search;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ch.beerpro.R;
-import ch.beerpro.dummy.DummyContent.SearchResult;
 
 import java.util.Arrays;
 
@@ -25,10 +23,10 @@ public class SearchSuggestionsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_searchresult_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_searchsuggestion_list, container, false);
 
         Context context = view.getContext();
-        RecyclerView recyclerView = (RecyclerView) view;
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 

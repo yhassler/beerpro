@@ -3,14 +3,10 @@ package ch.beerpro.search;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import ch.beerpro.R;
-import ch.beerpro.dummy.DummyContent.SearchResult;
 import ch.beerpro.search.SearchSuggestionsFragment.OnListFragmentInteractionListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -58,10 +54,10 @@ public class SearchSuggestionsRecyclerViewAdapter
         View view;
         switch (viewType) {
             case VIEW_TYPE_NO_SEARCH_HEADER:
-                view = layoutInflater.inflate(R.layout.fragment_searchresult_header, parent, false);
+                view = layoutInflater.inflate(R.layout.fragment_searchsuggestion_header, parent, false);
                 break;
             default:
-                view = layoutInflater.inflate(R.layout.fragment_searchresult_entry, parent, false);
+                view = layoutInflater.inflate(R.layout.fragment_searchsuggestion_entry, parent, false);
                 break;
         }
 

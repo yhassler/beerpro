@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 public class CurrentSearchTermViewModel extends ViewModel {
     private final MutableLiveData<String> selected = new MutableLiveData<>();
 
-    public void set(String searchTerm) {
+    public void setCurrentSearchTerm(String searchTerm) {
         selected.setValue(searchTerm);
     }
 
