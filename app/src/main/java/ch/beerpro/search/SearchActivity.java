@@ -17,8 +17,8 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.common.base.Strings;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class SearchActivity extends AppCompatActivity implements SearchResultFragment.OnListFragmentInteractionListener,
-        SearchSuggestionsFragment.OnListFragmentInteractionListener, MyBeersFragment.OnListFragmentInteractionListener {
+public class SearchActivity extends AppCompatActivity implements SearchResultFragment.OnItemSelectedListener,
+        SearchSuggestionsFragment.OnItemSelectedListener, MyBeersFragment.OnItemSelectedListener {
 
     private SearchActivityViewModel model;
     private ViewPagerAdapter adapter;
@@ -54,12 +54,12 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
     }
 
     @Override
-    public void onListFragmentInteraction(Beer item) {
+    public void onSearchResultListItemSelected(Beer item) {
 
     }
 
     @Override
-    public void onSearch(String text) {
+    public void onSearchSuggestionListItemSelected(String text) {
         searchEditText.setText(text);
         searchEditText.setSelection(text.length());
         hideKeyboard();
@@ -75,5 +75,10 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onListFragmentInteraction(Beer item) {
+
     }
 }

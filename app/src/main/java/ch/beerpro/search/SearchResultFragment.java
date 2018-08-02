@@ -3,7 +3,6 @@ package ch.beerpro.search;
 import android.content.Context;
 import android.os.Bundle;
 
-import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,7 +22,7 @@ public class SearchResultFragment extends Fragment {
 
     private static final String TAG = "SearchResultFragment";
 
-    private OnListFragmentInteractionListener mListener;
+    private OnItemSelectedListener mListener;
 
     private RecyclerView recyclerView;
     private View emptyView;
@@ -65,10 +64,10 @@ public class SearchResultFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnItemSelectedListener) {
+            mListener = (OnItemSelectedListener) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " must implement OnItemSelectedListener");
         }
     }
 
@@ -78,7 +77,7 @@ public class SearchResultFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(Beer item);
+    public interface OnItemSelectedListener {
+        void onSearchResultListItemSelected(Beer item);
     }
 }

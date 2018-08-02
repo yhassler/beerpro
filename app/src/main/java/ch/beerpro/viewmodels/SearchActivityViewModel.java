@@ -18,11 +18,9 @@ public class SearchActivityViewModel extends ViewModel {
     private static final String TAG = "SearchActivityViewModel";
     private final MutableLiveData<String> searchTerm = new MutableLiveData<>();
     private final FirestoreQueryLiveDataArray<Beer> allBeers =
-            new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection("beers"),
-                    Beer.class);
+            new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection("beers"), Beer.class);
 
     private final LiveData<List<Beer>> filteredBeers;
-
 
     public SearchActivityViewModel() {
         Log.i(TAG, "created");
@@ -36,7 +34,7 @@ public class SearchActivityViewModel extends ViewModel {
                     if (Strings.isNullOrEmpty(searchTerm)) {
                         return allBeers;
                     }
-                    if(allBeers == null) {
+                    if (allBeers == null) {
                         return Collections.emptyList();
                     }
                     ArrayList<Beer> filtered = new ArrayList<>();
@@ -47,10 +45,6 @@ public class SearchActivityViewModel extends ViewModel {
                     }
                     return filtered;
                 });
-    }
-
-    public LiveData<String> getCurrentSearchTerm() {
-        return searchTerm;
     }
 
     public void setCurrentSearchTerm(String searchTerm) {

@@ -18,7 +18,7 @@ public class MyBeersFragment extends Fragment {
 
     private static final String TAG = "MyBeersFragment";
 
-    private OnListFragmentInteractionListener mListener;
+    private OnItemSelectedListener mListener;
 
     private RecyclerView recyclerView;
     private View emptyView;
@@ -56,10 +56,10 @@ public class MyBeersFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnItemSelectedListener) {
+            mListener = (OnItemSelectedListener) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " must implement OnItemSelectedListener");
         }
     }
 
@@ -69,7 +69,7 @@ public class MyBeersFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
+    public interface OnItemSelectedListener {
         void onListFragmentInteraction(Beer item);
     }
 

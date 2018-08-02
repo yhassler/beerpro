@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import ch.beerpro.R;
 import ch.beerpro.dummy.Beer;
-import ch.beerpro.search.MyBeersFragment.OnListFragmentInteractionListener;
+import ch.beerpro.search.MyBeersFragment.OnItemSelectedListener;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
@@ -18,10 +18,10 @@ import com.squareup.picasso.Picasso;
 public class MyBeersRecyclerViewAdapter
         extends FirestoreRecyclerAdapter<Beer, MyBeersRecyclerViewAdapter.ViewHolder> {
 
-    private final OnListFragmentInteractionListener listener;
+    private final OnItemSelectedListener listener;
 
     public MyBeersRecyclerViewAdapter(FirestoreRecyclerOptions<Beer> options,
-                                      OnListFragmentInteractionListener listener) {
+                                      OnItemSelectedListener listener) {
         super(options);
         this.listener = listener;
     }

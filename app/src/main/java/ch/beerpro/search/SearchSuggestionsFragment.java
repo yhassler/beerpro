@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 public class SearchSuggestionsFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private OnItemSelectedListener mListener;
 
     public SearchSuggestionsFragment() {
     }
@@ -41,10 +41,10 @@ public class SearchSuggestionsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnItemSelectedListener) {
+            mListener = (OnItemSelectedListener) context;
         } else {
-            throw new RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString() + " must implement OnItemSelectedListener");
         }
     }
 
@@ -54,7 +54,7 @@ public class SearchSuggestionsFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
-        void onSearch(String text);
+    public interface OnItemSelectedListener {
+        void onSearchSuggestionListItemSelected(String text);
     }
 }

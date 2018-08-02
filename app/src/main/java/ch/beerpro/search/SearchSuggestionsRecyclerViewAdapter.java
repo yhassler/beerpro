@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import ch.beerpro.R;
-import ch.beerpro.search.SearchSuggestionsFragment.OnListFragmentInteractionListener;
+import ch.beerpro.search.SearchSuggestionsFragment.OnItemSelectedListener;
 
 import java.util.List;
 
@@ -28,10 +28,10 @@ public class SearchSuggestionsRecyclerViewAdapter
      * */
     private final List<String> previousSearches;
     private final List<String> popularSearches;
-    private final OnListFragmentInteractionListener listener;
+    private final OnItemSelectedListener listener;
 
     public SearchSuggestionsRecyclerViewAdapter(List<String> previousSearches, List<String> popularSearches,
-                                                OnListFragmentInteractionListener listener) {
+                                                OnItemSelectedListener listener) {
         this.previousSearches = previousSearches;
         this.popularSearches = popularSearches;
         this.listener = listener;
@@ -73,11 +73,11 @@ public class SearchSuggestionsRecyclerViewAdapter
         } else if (position <= previousSearches.size()) {
             String text = previousSearches.get(position - 1);
             holder.mContentView.setText(text);
-            holder.mView.setOnClickListener(v -> listener.onSearch(text));
+            holder.mView.setOnClickListener(v -> listener.onSearchSuggestionListItemSelected(text));
         } else {
             String text = popularSearches.get(position - 2 - previousSearches.size());
             holder.mContentView.setText(text);
-            holder.mView.setOnClickListener(v -> listener.onSearch(text));
+            holder.mView.setOnClickListener(v -> listener.onSearchSuggestionListItemSelected(text));
         }
     }
 
