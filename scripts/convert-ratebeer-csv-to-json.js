@@ -8,6 +8,11 @@ if (!csvFilePath) {
   return;
 }
 
+if (!manufacturer) {
+  console.log("No manufacturer name given");
+  return;
+}
+
 csv()
   .fromFile(csvFilePath)
   .then(row => {

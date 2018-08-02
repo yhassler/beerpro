@@ -15,13 +15,13 @@ import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.models.Beer;
 import ch.beerpro.search.MyBeersFragment.OnItemSelectedListener;
-import ch.beerpro.search.utils.BeerDiffItemCallback;
+import ch.beerpro.search.utils.EntityDiffItemCallback;
 import com.squareup.picasso.Picasso;
 
 
 public class MyBeersRecyclerViewAdapter extends ListAdapter<Beer, MyBeersRecyclerViewAdapter.ViewHolder> {
 
-    private static final DiffUtil.ItemCallback<Beer> DIFF_CALLBACK = new BeerDiffItemCallback();
+    private static final DiffUtil.ItemCallback<Beer> DIFF_CALLBACK = new EntityDiffItemCallback();
 
     private final OnItemSelectedListener listener;
 

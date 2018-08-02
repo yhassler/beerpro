@@ -4,16 +4,16 @@ import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import ch.beerpro.models.Entity;
 import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.ChangeEventListener;
-import com.firebase.ui.firestore.ClassSnapshotParser;
 import com.firebase.ui.firestore.FirestoreArray;
 import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.firebase.firestore.*;
 
 import java.util.List;
 
-public class FirestoreQueryLiveDataArray<T> extends LiveData<List<T>> implements ChangeEventListener {
+public class FirestoreQueryLiveDataArray<T extends Entity> extends LiveData<List<T>> implements ChangeEventListener {
 
     private static final String TAG = "FQueryLiveDataArray";
 
@@ -29,7 +29,8 @@ public class FirestoreQueryLiveDataArray<T> extends LiveData<List<T>> implements
     };
 
     public FirestoreQueryLiveDataArray(Query query, Class<T> modelClass) {
-        this.mSnapshots = new FirestoreArray<>(query, MetadataChanges.EXCLUDE, new ClassSnapshotParser<>(modelClass));
+        this.mSnapshots =
+                new FirestoreArray<>(query, MetadataChanges.EXCLUDE, new EntityClassSnapshotParser<>(modelClass));
     }
 
     @Override
@@ -63,4 +64,5 @@ public class FirestoreQueryLiveDataArray<T> extends LiveData<List<T>> implements
     public void onError(@NonNull FirebaseFirestoreException e) {
         Log.e(TAG, "Error:", e);
     }
+
 }

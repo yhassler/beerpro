@@ -1,13 +1,16 @@
 package ch.beerpro.models;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.util.Objects;
 
 //@Data
 //@NoArgsConstructor
-public class Beer {
+public class Beer implements Entity {
 
     public static final String FIELD_NAME = "name";
 
+    @Exclude
     private String id;
     private String manufacturer;
     private String name;
