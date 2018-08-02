@@ -38,6 +38,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
     implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
 
+    // lombok
+    //compileOnly "org.projectlombok:lombok:1.18.2"
+    //annotationProcessor "org.projectlombok:lombok:1.18.2"
+
     // ButterKnife
     implementation 'com.jakewharton:butterknife:9.0.0-SNAPSHOT'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-SNAPSHOT'

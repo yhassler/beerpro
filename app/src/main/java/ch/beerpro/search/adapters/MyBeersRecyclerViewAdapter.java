@@ -70,14 +70,14 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<Beer, MyBeersRecycle
         }
 
         void bind(Beer item, OnItemSelectedListener listener) {
-            name.setText(item.name);
-            manufacturer.setText(item.manufacturer);
-            category.setText(item.category);
-            name.setText(item.name);
-            Picasso.get().load(item.photo).resize(240, 240).centerInside().into(photo);
+            name.setText(item.getName());
+            manufacturer.setText(item.getManufacturer());
+            category.setText(item.getCategory());
+            name.setText(item.getName());
+            Picasso.get().load(item.getPhoto()).resize(240, 240).centerInside().into(photo);
             ratingBar.setNumStars(5);
-            ratingBar.setRating(item.avgRating);
-            numRatings.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.numRatings));
+            ratingBar.setRating(item.getAvgRating());
+            numRatings.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));
             itemView.setOnClickListener(v -> listener.onMyBeersListItemSelected(item));
         }
     }

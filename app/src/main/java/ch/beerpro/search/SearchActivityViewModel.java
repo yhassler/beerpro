@@ -18,7 +18,8 @@ public class SearchActivityViewModel extends ViewModel {
     private static final String TAG = "SearchActivityViewModel";
     private final MutableLiveData<String> searchTerm = new MutableLiveData<>();
     private final FirestoreQueryLiveDataArray<Beer> allBeers =
-            new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection("beers"), Beer.class);
+            new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection("beers").orderBy(Beer.FIELD_NAME), Beer
+                    .class);
 
     private final LiveData<List<Beer>> filteredBeers;
 
@@ -38,7 +39,7 @@ public class SearchActivityViewModel extends ViewModel {
             }
             ArrayList<Beer> filtered = new ArrayList<>();
             for (Beer beer : allBeers) {
-                if (beer.name.toLowerCase().contains(searchTerm.toLowerCase())) {
+                if (beer.getName().toLowerCase().contains(searchTerm.toLowerCase())) {
                     filtered.add(beer);
                 }
             }

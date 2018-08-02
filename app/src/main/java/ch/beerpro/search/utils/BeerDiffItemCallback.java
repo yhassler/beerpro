@@ -6,12 +6,12 @@ import ch.beerpro.models.Beer;
 
 public class BeerDiffItemCallback extends DiffUtil.ItemCallback<Beer> {
     @Override
-    public boolean areItemsTheSame(@NonNull Beer oldUser, @NonNull Beer newUser) {
-        return oldUser.id.equals(newUser.id);
+    public boolean areItemsTheSame(@NonNull Beer oldBeer, @NonNull Beer newBeer) {
+        return oldBeer.getName().equals(newBeer.getName()) && oldBeer.getManufacturer().equals(newBeer.getManufacturer());
     }
 
     @Override
-    public boolean areContentsTheSame(@NonNull Beer oldUser, @NonNull Beer newUser) {
-        return oldUser.equals(newUser);
+    public boolean areContentsTheSame(@NonNull Beer oldBeer, @NonNull Beer newBeer) {
+        return oldBeer.equals(newBeer);
     }
 }

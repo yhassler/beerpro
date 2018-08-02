@@ -2,17 +2,23 @@ package ch.beerpro.models;
 
 import java.util.Objects;
 
+//@Data
+//@NoArgsConstructor
 public class Beer {
-    public String id;
-    public String manufacturer;
-    public String name;
-    public String category;
-    public String photo;
-    public int avgRating;
-    public int numRatings;
+
+    public static final String FIELD_NAME = "name";
+
+    private String id;
+    private String manufacturer;
+    private String name;
+    private String category;
+    private String photo;
+    private int avgRating;
+    private int numRatings;
 
     public Beer() {
-    } // Needed for Firebase
+    }
+
     public Beer(String id, String manufacturer, String name, String category, String photo, int avgRating,
                 int numRatings) {
         this.id = id;
@@ -42,9 +48,59 @@ public class Beer {
         return Objects.hash(id, manufacturer, name, category, photo, avgRating, numRatings);
     }
 
-    @Override
-    public String toString() {
-        return "Beer{" + "id='" + id + '\'' + ", manufacturer='" + manufacturer + '\'' + ", name='" + name + '\'' +
-                ", category='" + category + '\'' + ", avgRating=" + avgRating + ", numRatings=" + numRatings + '}';
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public int getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(int avgRating) {
+        this.avgRating = avgRating;
+    }
+
+    public int getNumRatings() {
+        return numRatings;
+    }
+
+    public void setNumRatings(int numRatings) {
+        this.numRatings = numRatings;
     }
 }
