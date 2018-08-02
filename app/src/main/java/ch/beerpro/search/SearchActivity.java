@@ -8,17 +8,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import ch.beerpro.R;
-import ch.beerpro.dummy.DummyContent;
+import ch.beerpro.dummy.Beer;
 
 import android.os.Bundle;
 
+import ch.beerpro.viewmodels.SearchActivityViewModel;
 import com.google.android.material.tabs.TabLayout;
+import com.google.common.base.Strings;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SearchActivity extends AppCompatActivity implements SearchResultFragment.OnListFragmentInteractionListener,
         SearchSuggestionsFragment.OnListFragmentInteractionListener, MyBeersFragment.OnListFragmentInteractionListener {
 
-    private CurrentSearchTermViewModel model;
+    private SearchActivityViewModel model;
     private ViewPagerAdapter adapter;
     private EditText searchEditText;
 
@@ -46,13 +48,13 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        model = ViewModelProviders.of(this).get(CurrentSearchTermViewModel.class);
+        model = ViewModelProviders.of(this).get(SearchActivityViewModel.class);
 
         FirebaseFirestore.setLoggingEnabled(true);
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.Beer item) {
+    public void onListFragmentInteraction(Beer item) {
 
     }
 
@@ -66,7 +68,7 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
 
     private void handleSearch(String text) {
         model.setCurrentSearchTerm(text);
-        adapter.setShowSuggestions(text == null || text.isEmpty());
+        adapter.setShowSuggestions(Strings.isNullOrEmpty(text));
         adapter.notifyDataSetChanged();
     }
 

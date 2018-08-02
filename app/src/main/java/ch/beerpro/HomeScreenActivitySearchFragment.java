@@ -9,9 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProviders;
-import ch.beerpro.search.CurrentSearchTermViewModel;
 import ch.beerpro.search.SearchActivity;
-import ch.beerpro.viewmodels.BeersViewModel;
+import ch.beerpro.viewmodels.SearchActivityViewModel;
 
 import java.util.Arrays;
 
@@ -31,8 +30,8 @@ public class HomeScreenActivitySearchFragment extends Fragment {
         beerSearchButton.setOnClickListener(view -> startActivity(new Intent(getActivity(), SearchActivity.class)));
 
 
-        BeersViewModel model = ViewModelProviders.of(this).get(BeersViewModel.class);
-        model.getBeers().observe(this, beers -> {
+        SearchActivityViewModel model = ViewModelProviders.of(this).get(SearchActivityViewModel.class);
+        model.getFilteredBeers().observe(this, beers -> {
             Log.i(TAG, Arrays.toString(beers.toArray()));
         });
 

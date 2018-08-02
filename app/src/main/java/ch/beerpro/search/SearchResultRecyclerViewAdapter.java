@@ -1,7 +1,12 @@
 package ch.beerpro.search;
 
 import android.util.Log;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -9,32 +14,32 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ch.beerpro.R;
-import ch.beerpro.dummy.DummyContent;
 import ch.beerpro.search.SearchResultFragment.OnListFragmentInteractionListener;
-import ch.beerpro.dummy.DummyContent.Beer;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.common.base.Strings;
+import ch.beerpro.dummy.Beer;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
 
+public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchResultRecyclerViewAdapter.ViewHolder> {
 
-public class SearchResultRecyclerViewAdapter extends RecyclerView.Adapter<SearchResultRecyclerViewAdapter.ViewHolder>
-        implements Filterable {
+    private static final DiffUtil.ItemCallback<Beer> DIFF_CALLBACK = new DiffUtil.ItemCallback<Beer>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Beer oldUser, @NonNull Beer newUser) {
+            return oldUser.id == newUser.id;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Beer oldUser, @NonNull Beer newUser) {
+            return oldUser.equals(newUser);
+        }
+    };
 
     private static final String TAG = "SearchResultRecyclerVie";
-
     private final OnListFragmentInteractionListener listener;
-    private ArrayList<Beer> listEntries;
-    private ArrayList<Beer> listEntriesFiltered;
 
     public SearchResultRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+        super(DIFF_CALLBACK);
         Log.i(TAG, "constructed");
         this.listener = listener;
-        this.listEntries = new ArrayList<>();
-        this.listEntriesFiltered = this.listEntries;
     }
 
     @Override
@@ -46,7 +51,7 @@ public class SearchResultRecyclerViewAdapter extends RecyclerView.Adapter<Search
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Beer item = listEntriesFiltered.get(position);
+        Beer item = getItem(position);
         holder.mItem = item;
         holder.mContentView.setText(item.name);
         holder.mManufacturerView.setText(item.manufacturer);
@@ -59,49 +64,6 @@ public class SearchResultRecyclerViewAdapter extends RecyclerView.Adapter<Search
         holder.mView.setOnClickListener(v -> listener.onListFragmentInteraction(holder.mItem));
     }
 
-    @Override
-    public int getItemCount() {
-        return listEntriesFiltered.size();
-    }
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                List<Beer> filtered = new ArrayList<>();
-
-                if (charSequence == null || charSequence.length() == 0) {
-                    filtered = listEntries;
-                } else {
-                    String query = charSequence.toString();
-                    for (Beer beer : listEntries) {
-                        if (beer.name.toLowerCase().contains(query.toLowerCase())) {
-                            filtered.add(beer);
-                        }
-                    }
-                }
-
-                FilterResults results = new FilterResults();
-                results.count = filtered.size();
-                results.values = filtered;
-                return results;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults results) {
-                listEntriesFiltered = (ArrayList<Beer>) results.values;
-                notifyDataSetChanged();
-            }
-        };
-    }
-
-    public void setListItems(List<Beer> beers) {
-        Log.i(TAG, "setListItems");
-        listEntries.clear();
-        listEntries.addAll(beers);
-        notifyDataSetChanged();
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;

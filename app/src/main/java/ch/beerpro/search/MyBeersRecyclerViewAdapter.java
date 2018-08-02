@@ -8,7 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import ch.beerpro.R;
-import ch.beerpro.dummy.DummyContent.Beer;
+import ch.beerpro.dummy.Beer;
 import ch.beerpro.search.MyBeersFragment.OnListFragmentInteractionListener;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;

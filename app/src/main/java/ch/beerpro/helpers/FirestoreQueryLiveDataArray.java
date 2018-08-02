@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import ch.beerpro.dummy.DummyContent;
 import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.ChangeEventListener;
 import com.firebase.ui.firestore.ClassSnapshotParser;
@@ -12,7 +11,6 @@ import com.firebase.ui.firestore.FirestoreArray;
 import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.google.firebase.firestore.*;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class FirestoreQueryLiveDataArray<T> extends LiveData<List<T>> implements ChangeEventListener {
