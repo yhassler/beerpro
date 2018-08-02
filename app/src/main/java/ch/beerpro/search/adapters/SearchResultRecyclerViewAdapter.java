@@ -1,5 +1,8 @@
-package ch.beerpro.search;
+package ch.beerpro.search.adapters;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -7,32 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
+import ch.beerpro.models.Beer;
 import ch.beerpro.search.SearchResultFragment.OnItemSelectedListener;
-import ch.beerpro.dummy.Beer;
+import ch.beerpro.search.utils.BeerDiffItemCallback;
 import com.squareup.picasso.Picasso;
 
 
 public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchResultRecyclerViewAdapter.ViewHolder> {
 
-    private static final DiffUtil.ItemCallback<Beer> DIFF_CALLBACK = new DiffUtil.ItemCallback<Beer>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull Beer oldUser, @NonNull Beer newUser) {
-            return oldUser.id.equals(newUser.id);
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Beer oldUser, @NonNull Beer newUser) {
-            return oldUser.equals(newUser);
-        }
-    };
+    private static final DiffUtil.ItemCallback<Beer> DIFF_CALLBACK = new BeerDiffItemCallback();
 
     private final OnItemSelectedListener listener;
 
@@ -79,7 +68,7 @@ public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchRes
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(Beer item, SearchResultFragment.OnItemSelectedListener listener) {
+        void bind(Beer item, OnItemSelectedListener listener) {
             name.setText(item.name);
             manufacturer.setText(item.manufacturer);
             category.setText(item.category);

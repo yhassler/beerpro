@@ -2,6 +2,7 @@ package ch.beerpro;
 
 import android.os.Bundle;
 
+import ch.beerpro.helpers.ViewPagerAdapter;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;

@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ch.beerpro.R;
-import ch.beerpro.dummy.Beer;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+import ch.beerpro.models.Beer;
+import ch.beerpro.search.adapters.MyBeersRecyclerViewAdapter;
+
+import java.util.List;
 
 public class MyBeersFragment extends Fragment {
 
@@ -20,8 +23,13 @@ public class MyBeersFragment extends Fragment {
 
     private OnItemSelectedListener mListener;
 
-    private RecyclerView recyclerView;
-    private View emptyView;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.emptyView)
+    View emptyView;
+
+    private MyBeersRecyclerViewAdapter adapter;
 
     public MyBeersFragment() {
     }
@@ -29,28 +37,29 @@ public class MyBeersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_searchresult_list, container, false);
+        ButterKnife.bind(this, view);
 
-        Context context = view.getContext();
-        recyclerView = view.findViewById(R.id.recyclerView);
-        emptyView = view.findViewById(R.id.emptyView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        // TODO show user's beers!
-        Query query = FirebaseFirestore.getInstance().collection("beers");
+        adapter = new MyBeersRecyclerViewAdapter(mListener);
 
-        FirestoreRecyclerOptions<Beer> firestoreRecyclerOptions =
-                new FirestoreRecyclerOptions.Builder<Beer>().setLifecycleOwner(this).setQuery(query, Beer.class)
-                        .build();
+        SearchActivityViewModel model = ViewModelProviders.of(getActivity()).get(SearchActivityViewModel.class);
+        model.getAllBeers().observe(getActivity(), this::handleBeersChanged);
 
-        MyBeersRecyclerViewAdapter adapter = new MyBeersRecyclerViewAdapter(firestoreRecyclerOptions, mListener);
         recyclerView.setAdapter(adapter);
-
-        MyAdapterDataObserver adapterDataObserver = new MyAdapterDataObserver(adapter);
-        adapter.registerAdapterDataObserver(adapterDataObserver);
-
-
         return view;
+    }
+
+    private void handleBeersChanged(List<Beer> beers) {
+        adapter.submitList(beers);
+        if (beers.isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -70,43 +79,6 @@ public class MyBeersFragment extends Fragment {
     }
 
     public interface OnItemSelectedListener {
-        void onListFragmentInteraction(Beer item);
-    }
-
-    private class MyAdapterDataObserver extends RecyclerView.AdapterDataObserver {
-
-        private final RecyclerView.Adapter adapter;
-
-        public MyAdapterDataObserver(RecyclerView.Adapter adapter) {
-            this.adapter = adapter;
-        }
-
-        @Override
-        public void onChanged() {
-            super.onChanged();
-            checkEmpty();
-        }
-
-        @Override
-        public void onItemRangeInserted(int positionStart, int itemCount) {
-            super.onItemRangeInserted(positionStart, itemCount);
-            checkEmpty();
-        }
-
-        @Override
-        public void onItemRangeRemoved(int positionStart, int itemCount) {
-            super.onItemRangeRemoved(positionStart, itemCount);
-            checkEmpty();
-        }
-
-        void checkEmpty() {
-            if (adapter.getItemCount() == 0) {
-                emptyView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
-            } else {
-                emptyView.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-        }
+        void onMyBeersListItemSelected(Beer item);
     }
 }

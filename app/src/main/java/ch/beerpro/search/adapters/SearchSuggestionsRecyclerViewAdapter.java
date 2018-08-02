@@ -1,10 +1,13 @@
-package ch.beerpro.search;
+package ch.beerpro.search.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.search.SearchSuggestionsFragment.OnItemSelectedListener;
 
@@ -14,8 +17,8 @@ import java.util.List;
 public class SearchSuggestionsRecyclerViewAdapter
         extends RecyclerView.Adapter<SearchSuggestionsRecyclerViewAdapter.ViewHolder> {
 
-    public static final int VIEW_TYPE_NO_SEARCH_HEADER = 1;
-    public static final int VIEW_TYPE_NO_SEARCH_ENTRY = 2;
+    private static final int VIEW_TYPE_NO_SEARCH_HEADER = 1;
+    private static final int VIEW_TYPE_NO_SEARCH_ENTRY = 2;
 
     /*
      * LETZTE SUCHEN
@@ -46,9 +49,9 @@ public class SearchSuggestionsRecyclerViewAdapter
         }
     }
 
-
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
         View view;
@@ -65,19 +68,17 @@ public class SearchSuggestionsRecyclerViewAdapter
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if (position == 0) {
-            holder.mContentView.setText("LETZTE SUCHEN");
+            holder.bind("LETZTE SUCHEN", null);
         } else if (position - 1 == previousSearches.size()) {
-            holder.mContentView.setText("BELIEBTE SUCHEN");
+            holder.bind("BELIEBTE SUCHEN", null);
         } else if (position <= previousSearches.size()) {
             String text = previousSearches.get(position - 1);
-            holder.mContentView.setText(text);
-            holder.mView.setOnClickListener(v -> listener.onSearchSuggestionListItemSelected(text));
+            holder.bind(text, listener);
         } else {
             String text = popularSearches.get(position - 2 - previousSearches.size());
-            holder.mContentView.setText(text);
-            holder.mView.setOnClickListener(v -> listener.onSearchSuggestionListItemSelected(text));
+            holder.bind(text, listener);
         }
     }
 
@@ -86,14 +87,21 @@ public class SearchSuggestionsRecyclerViewAdapter
         return previousSearches.size() + popularSearches.size() + 2 /*headers*/;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        final View mView;
-        final TextView mContentView;
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.content)
+        TextView content;
 
         ViewHolder(View view) {
             super(view);
-            mView = view;
-            mContentView = view.findViewById(R.id.content);
+            ButterKnife.bind(this, itemView);
+        }
+
+        void bind(String text, OnItemSelectedListener listener) {
+            content.setText(text);
+            if (listener != null) {
+                itemView.setOnClickListener(v -> listener.onSearchSuggestionListItemSelected(text));
+            }
         }
     }
 }

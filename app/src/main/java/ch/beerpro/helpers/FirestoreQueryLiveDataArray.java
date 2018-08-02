@@ -23,8 +23,6 @@ public class FirestoreQueryLiveDataArray<T> extends LiveData<List<T>> implements
     private final Runnable removeListener = new Runnable() {
         @Override
         public void run() {
-            Log.i(TAG, "removing listener to FirestoreArray");
-
             mSnapshots.removeChangeEventListener(FirestoreQueryLiveDataArray.this);
             listenerRemovePending = false;
         }
@@ -39,7 +37,6 @@ public class FirestoreQueryLiveDataArray<T> extends LiveData<List<T>> implements
         if (listenerRemovePending) {
             handler.removeCallbacks(removeListener);
         } else if (!mSnapshots.isListening(this)) {
-            Log.i(TAG, "adding listener to FirestoreArray");
             mSnapshots.addChangeEventListener(this);
         }
         listenerRemovePending = false;
@@ -59,7 +56,6 @@ public class FirestoreQueryLiveDataArray<T> extends LiveData<List<T>> implements
 
     @Override
     public void onDataChanged() {
-        Log.i(TAG, "data changed");
         setValue(mSnapshots);
     }
 

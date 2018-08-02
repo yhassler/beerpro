@@ -8,17 +8,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import ch.beerpro.R;
-import ch.beerpro.dummy.Beer;
+import ch.beerpro.models.Beer;
 
 import android.os.Bundle;
 
-import ch.beerpro.viewmodels.SearchActivityViewModel;
+import ch.beerpro.search.adapters.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.common.base.Strings;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class SearchActivity extends AppCompatActivity implements SearchResultFragment.OnItemSelectedListener,
-        SearchSuggestionsFragment.OnItemSelectedListener, MyBeersFragment.OnItemSelectedListener {
+public class SearchActivity extends AppCompatActivity
+        implements SearchResultFragment.OnItemSelectedListener, SearchSuggestionsFragment.OnItemSelectedListener,
+        MyBeersFragment.OnItemSelectedListener {
 
     private SearchActivityViewModel model;
     private ViewPagerAdapter adapter;
@@ -74,11 +75,13 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
 
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
+        }
     }
 
     @Override
-    public void onListFragmentInteraction(Beer item) {
+    public void onMyBeersListItemSelected(Beer item) {
 
     }
 }

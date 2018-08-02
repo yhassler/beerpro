@@ -4,7 +4,7 @@ import android.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 
-public class LiveDataExt {
+public class LiveDataExtensions {
 
     public static <A, B> LiveData<Pair<A, B>> combineLatest(LiveData<A> as, LiveData<B> bs) {
         return new MediatorLiveData<Pair<A, B>>() {

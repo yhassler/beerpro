@@ -1,4 +1,4 @@
-package ch.beerpro.dummy;
+package ch.beerpro.models;
 
 import java.util.Objects;
 

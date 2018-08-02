@@ -1,10 +1,14 @@
-package ch.beerpro.search;
+package ch.beerpro.search.adapters;
 
 import android.util.Log;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import ch.beerpro.search.MyBeersFragment;
+import ch.beerpro.search.SearchResultFragment;
+import ch.beerpro.search.SearchSuggestionsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +55,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getItemPosition(Object object) {
+    public int getItemPosition(@NonNull Object object) {
         return POSITION_NONE;
     }
 

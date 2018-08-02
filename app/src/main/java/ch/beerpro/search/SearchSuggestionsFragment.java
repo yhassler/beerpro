@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ch.beerpro.R;
+import ch.beerpro.search.adapters.SearchSuggestionsRecyclerViewAdapter;
 
 import java.util.Arrays;
 

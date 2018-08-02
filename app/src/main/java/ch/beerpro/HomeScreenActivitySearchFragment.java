@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProviders;
 import ch.beerpro.search.SearchActivity;
-import ch.beerpro.viewmodels.SearchActivityViewModel;
+import ch.beerpro.search.SearchActivityViewModel;
 
 import java.util.Arrays;
 

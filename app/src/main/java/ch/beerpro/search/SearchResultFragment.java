@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ch.beerpro.R;
-import ch.beerpro.dummy.Beer;
-import ch.beerpro.viewmodels.SearchActivityViewModel;
+import ch.beerpro.models.Beer;
+import ch.beerpro.search.adapters.SearchResultRecyclerViewAdapter;
 
 import java.util.List;
 
@@ -24,8 +26,12 @@ public class SearchResultFragment extends Fragment {
 
     private OnItemSelectedListener mListener;
 
-    private RecyclerView recyclerView;
-    private View emptyView;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    @BindView(R.id.emptyView)
+    View emptyView;
+
     private SearchResultRecyclerViewAdapter adapter;
 
     public SearchResultFragment() {
@@ -34,11 +40,9 @@ public class SearchResultFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_searchresult_list, container, false);
+        ButterKnife.bind(this, view);
 
-        Context context = view.getContext();
-        recyclerView = view.findViewById(R.id.recyclerView);
-        emptyView = view.findViewById(R.id.emptyView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new SearchResultRecyclerViewAdapter(mListener);
