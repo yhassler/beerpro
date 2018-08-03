@@ -1,6 +1,9 @@
 package ch.beerpro.search;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -8,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import ch.beerpro.R;
+import ch.beerpro.SingleBeerActivity;
 import ch.beerpro.models.Beer;
 
 import android.os.Bundle;
@@ -55,8 +59,11 @@ public class SearchActivity extends AppCompatActivity
     }
 
     @Override
-    public void onSearchResultListItemSelected(Beer item) {
-
+    public void onSearchResultListItemSelected(View animationSource, Beer item) {
+        Intent intent = new Intent(this, SingleBeerActivity.class);
+        intent.putExtra(SingleBeerActivity.ITEM, item);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, animationSource, "image");
+        startActivity(intent, options.toBundle());
     }
 
     @Override
@@ -65,6 +72,14 @@ public class SearchActivity extends AppCompatActivity
         searchEditText.setSelection(text.length());
         hideKeyboard();
         handleSearch(text);
+    }
+
+    @Override
+    public void onMyBeersListItemSelected(View animationSource, Beer item) {
+        Intent intent = new Intent(this, SingleBeerActivity.class);
+        intent.putExtra(SingleBeerActivity.ITEM, item);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, animationSource, "image");
+        startActivity(intent, options.toBundle());
     }
 
     private void handleSearch(String text) {
@@ -78,10 +93,5 @@ public class SearchActivity extends AppCompatActivity
         if (imm != null) {
             imm.hideSoftInputFromWindow(searchEditText.getWindowToken(), 0);
         }
-    }
-
-    @Override
-    public void onMyBeersListItemSelected(Beer item) {
-
     }
 }

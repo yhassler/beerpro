@@ -79,6 +79,6 @@ public class MyBeersFragment extends Fragment {
     }
 
     public interface OnItemSelectedListener {
-        void onMyBeersListItemSelected(Beer item);
+        void onMyBeersListItemSelected(View animationSource, Beer item);
     }
 }

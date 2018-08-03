@@ -2,11 +2,12 @@ package ch.beerpro.models;
 
 import com.google.firebase.firestore.Exclude;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 //@Data
 //@NoArgsConstructor
-public class Beer implements Entity {
+public class Beer implements Entity, Serializable {
 
     public static final String FIELD_NAME = "name";
 

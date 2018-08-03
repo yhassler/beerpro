@@ -14,6 +14,7 @@
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/LoginScreenTheme">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,6 +26,16 @@
             android:label="@string/title_activity_home_screen"
             android:theme="@style/AppTheme" />
         <activity android:name=".search.SearchActivity" />
+        <activity
+            android:name=".SingleBeerActivity"
+            android:label="@string/title_activity_single_beer"
+            android:parentActivityName=".search.SearchActivity"
+            android:theme="@style/DetailsPageTheme">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.beerpro.search.SearchActivity" />
+        </activity>
     </application>
 
 </manifest>

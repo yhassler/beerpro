@@ -61,7 +61,7 @@
         android:background="@android:color/transparent"
         android:visibility="visible"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_searchresult_entry" >
+        tools:listitem="@layout/fragment_searchresult_entry">
 
     </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>

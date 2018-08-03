@@ -82,6 +82,6 @@ public class SearchResultFragment extends Fragment {
     }
 
     public interface OnItemSelectedListener {
-        void onSearchResultListItemSelected(Beer item);
+        void onSearchResultListItemSelected(View animationSource, Beer item);
     }
 }

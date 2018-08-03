@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 public class MyBeersRecyclerViewAdapter extends ListAdapter<Beer, MyBeersRecyclerViewAdapter.ViewHolder> {
 
-    private static final DiffUtil.ItemCallback<Beer> DIFF_CALLBACK = new EntityDiffItemCallback();
+    private static final EntityDiffItemCallback<Beer> DIFF_CALLBACK = new EntityDiffItemCallback<>();
 
     private final OnItemSelectedListener listener;
 
@@ -78,7 +78,9 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<Beer, MyBeersRecycle
             ratingBar.setNumStars(5);
             ratingBar.setRating(item.getAvgRating());
             numRatings.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));
-            itemView.setOnClickListener(v -> listener.onMyBeersListItemSelected(item));
+            if (listener != null) {
+                itemView.setOnClickListener(v -> listener.onMyBeersListItemSelected(photo, item));
+            }
         }
     }
 }

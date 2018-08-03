@@ -5,7 +5,7 @@ import ch.beerpro.models.Entity;
 import com.firebase.ui.firestore.ClassSnapshotParser;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-class EntityClassSnapshotParser<T extends Entity> extends ClassSnapshotParser<T> {
+public class EntityClassSnapshotParser<T extends Entity> extends ClassSnapshotParser<T> {
     public EntityClassSnapshotParser(Class<T> modelClass) {
         super(modelClass);
     }

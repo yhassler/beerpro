@@ -21,7 +21,7 @@ import com.squareup.picasso.Picasso;
 
 public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchResultRecyclerViewAdapter.ViewHolder> {
 
-    private static final DiffUtil.ItemCallback<Beer> DIFF_CALLBACK = new EntityDiffItemCallback();
+    private static final EntityDiffItemCallback<Beer> DIFF_CALLBACK = new EntityDiffItemCallback<Beer>();
 
     private final OnItemSelectedListener listener;
 
@@ -77,7 +77,7 @@ public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchRes
             ratingBar.setNumStars(5);
             ratingBar.setRating(item.getAvgRating());
             numRatings.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));
-            itemView.setOnClickListener(v -> listener.onSearchResultListItemSelected(item));
+            itemView.setOnClickListener(v -> listener.onSearchResultListItemSelected(photo, item));
         }
     }
 }

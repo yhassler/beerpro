@@ -1,5 +1,6 @@
 package ch.beerpro;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import ch.beerpro.helpers.ViewPagerAdapter;
@@ -16,7 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class HomeScreenActivity extends AppCompatActivity {
+public class HomeScreenActivity extends AppCompatActivity implements BeerCategoriesFragment
+        .OnItemSelectedListener, BeerManufacturersFragment.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,16 @@ public class HomeScreenActivity extends AppCompatActivity {
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(task -> finish());
+
+    }
+
+    @Override
+    public void onBeerCategorySelected(String name) {
+
+    }
+
+    @Override
+    public void onBeerManufacturerSelected(String name) {
 
     }
 }
