@@ -1,4 +1,4 @@
-package ch.beerpro;
+package ch.beerpro.single;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.R;
 import ch.beerpro.models.Beer;
 import ch.beerpro.models.Rating;
-import ch.beerpro.search.adapters.MyBeersRecyclerViewAdapter;
-import ch.beerpro.single.OnRatingLikedListener;
+import ch.beerpro.rating.RatingActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SingleBeerActivity extends AppCompatActivity implements OnRatingLikedListener {
@@ -67,6 +67,8 @@ public class SingleBeerActivity extends AppCompatActivity implements OnRatingLik
 
     private RatingsRecyclerViewAdapter adapter;
 
+    private SingleBeerViewModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,20 +77,20 @@ public class SingleBeerActivity extends AppCompatActivity implements OnRatingLik
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
+
+        model = ViewModelProviders.of(this).get(SingleBeerViewModel.class);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RatingsRecyclerViewAdapter(this);
+        adapter = new RatingsRecyclerViewAdapter(this, model.getCurrentUser());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
-        recyclerView.setAdapter(adapter);
 
-        Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
-        updateBeer(item);
-
-        SingleBeerViewModel model = ViewModelProviders.of(this).get(SingleBeerViewModel.class);
         model.getBeer(item.getId()).observe(this, this::updateBeer);
         model.getRatings(item.getId()).observe(this, this::updateRatings);
 
+        recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
     }
 
@@ -109,16 +111,17 @@ public class SingleBeerActivity extends AppCompatActivity implements OnRatingLik
         Picasso.get().load(item.getPhoto()).resize(120, 160).centerInside().into(photo);
         ratingBar.setNumStars(5);
         ratingBar.setRating(item.getAvgRating());
-        numRatings.setText(getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));
+        avgRating.setText(getResources().getString(R.string.fmt_avg_rating, item.getAvgRating()));
+        numRatings.setText(getResources().getString(R.string.fmt_ratings, item.getNumRatings()));
         collapsingToolbar.setTitle(item.getName());
     }
 
     private void updateRatings(List<Rating> ratings) {
-        adapter.submitList(ratings);
+        adapter.submitList(new ArrayList<>(ratings));
     }
 
     @Override
-    public void onRatingLikedListener(String ratingId) {
-
+    public void onRatingLikedListener(Rating rating) {
+        model.toggleLike(rating);
     }
 }

@@ -30,8 +30,8 @@ public class FirestoreQueryLiveData<T extends Entity> extends LiveData<T> implem
             listenerRemovePending = false;
         }
     };
-    private EntityClassSnapshotParser<T> parser;
 
+    private EntityClassSnapshotParser<T> parser;
 
     public FirestoreQueryLiveData(DocumentReference documentReference, Class<T> modelClass) {
         this.documentReference = documentReference;
@@ -53,7 +53,6 @@ public class FirestoreQueryLiveData<T extends Entity> extends LiveData<T> implem
         handler.postDelayed(removeListener, 2000);
         listenerRemovePending = true;
     }
-
 
     @Override
     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {

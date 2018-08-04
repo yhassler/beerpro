@@ -5,6 +5,8 @@
     <string name="action_logout">Abmelden</string>
     <string name="todo">TODO</string>
     <string name="fmt_num_ratings">(%d)</string>
+    <string name="fmt_avg_rating">%.1f</string>
+    <string name="fmt_ratings">%d Beurteilungen</string>
     <string name="title_activity_single_beer">SingleBeerActivity</string>
     <string name="title_activity_rating">Beurteilung hinzufügen</string>
     <string name="large_text">

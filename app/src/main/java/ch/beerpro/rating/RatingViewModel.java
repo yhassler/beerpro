@@ -1,8 +1,6 @@
-package ch.beerpro;
+package ch.beerpro.rating;
 
 import android.util.Log;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import ch.beerpro.helpers.EntityClassSnapshotParser;
 import ch.beerpro.models.Rating;
 import android.net.Uri;
@@ -15,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 
 public class RatingViewModel extends ViewModel {
@@ -59,7 +56,8 @@ public class RatingViewModel extends ViewModel {
                 throw task.getException();
             }
 
-            Rating newRating = new Rating(null, item.getId(), user.getUid(), photoUrl, rating, comment, 0, new Date());
+            Rating newRating = new Rating(item.getId(), item.getName(), user.getUid(), user.getDisplayName(),
+                    user.getPhotoUrl().toString(), photoUrl, rating, comment, new Date());
             Log.i(TAG, "Adding new rating: " + newRating.toString());
             return FirebaseFirestore.getInstance().collection("ratings").add(newRating);
 

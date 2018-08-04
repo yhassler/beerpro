@@ -15,6 +15,7 @@ import ch.beerpro.R;
 import ch.beerpro.models.Beer;
 import ch.beerpro.search.adapters.MyBeersRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyBeersFragment extends Fragment {
@@ -52,7 +53,7 @@ public class MyBeersFragment extends Fragment {
     }
 
     private void handleBeersChanged(List<Beer> beers) {
-        adapter.submitList(beers);
+        adapter.submitList(new ArrayList<>(beers));
         if (beers.isEmpty()) {
             emptyView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);

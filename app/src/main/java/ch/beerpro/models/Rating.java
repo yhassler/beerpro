@@ -2,8 +2,7 @@ package ch.beerpro.models;
 
 import com.google.firebase.firestore.Exclude;
 
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class Rating implements Entity {
     public static final String COLLECTION = "ratings";
@@ -14,22 +13,27 @@ public class Rating implements Entity {
     @Exclude
     private String id;
     private String beerId;
+    private String beerName;
     private String userId;
+    private String userName;
+    private String userPhoto;
     private String photo;
     private float rating;
     private String comment;
-    private int likes;
+    private Map<String, Boolean> likes;
     private Date creationDate;
 
-    public Rating(String id, String beerId, String userId, String photo, float rating, String comment, int likes,
-                  Date creationDate) {
-        this.id = id;
+    public Rating(String beerId, String beerName, String userId, String userName, String userPhoto, String photo,
+                  float rating, String comment, Date creationDate) {
         this.beerId = beerId;
+        this.beerName = beerName;
         this.userId = userId;
+        this.userName = userName;
+        this.userPhoto = userPhoto;
         this.photo = photo;
         this.rating = rating;
         this.comment = comment;
-        this.likes = likes;
+        this.likes = new HashMap<>();
         this.creationDate = creationDate;
     }
 
@@ -37,24 +41,34 @@ public class Rating implements Entity {
 
     }
 
-    @Override
+    public String getBeerName() {
+        return beerName;
+    }
 
+    public void setBeerName(String beerName) {
+        this.beerName = beerName;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
         Rating rating1 = (Rating) o;
-        return Float.compare(rating1.rating, rating) == 0 && likes == rating1.likes && Objects.equals(id, rating1.id) &&
-                Objects.equals(beerId, rating1.beerId) && Objects.equals(userId, rating1.userId) &&
-                Objects.equals(photo, rating1.photo) && Objects.equals(comment, rating1.comment) &&
+        return Float.compare(rating1.rating, rating) == 0 && Objects.equals(id, rating1.id) &&
+                Objects.equals(beerId, rating1.beerId) && Objects.equals(beerName, rating1.beerName) &&
+                Objects.equals(userId, rating1.userId) && Objects.equals(userName, rating1.userName) &&
+                Objects.equals(userPhoto, rating1.userPhoto) && Objects.equals(photo, rating1.photo) &&
+                Objects.equals(comment, rating1.comment) && Objects.equals(likes, rating1.likes) &&
                 Objects.equals(creationDate, rating1.creationDate);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, beerId, userId, photo, rating, comment, likes, creationDate);
+        return Objects
+                .hash(id, beerId, beerName, userId, userName, userPhoto, photo, rating, comment, likes, creationDate);
     }
 
     public Date getCreationDate() {
@@ -65,11 +79,11 @@ public class Rating implements Entity {
         this.creationDate = creationDate;
     }
 
-    public int getLikes() {
+    public Map<String, Boolean> getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(Map<String, Boolean> likes) {
         this.likes = likes;
     }
 
@@ -121,5 +135,21 @@ public class Rating implements Entity {
     @Override
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
     }
 }

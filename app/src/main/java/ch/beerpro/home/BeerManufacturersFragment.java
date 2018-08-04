@@ -1,4 +1,4 @@
-package ch.beerpro;
+package ch.beerpro.home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,22 +12,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.R;
 import ch.beerpro.helpers.GridSpacingItemDecoration;
 
 
-public class BeerCategoriesFragment extends Fragment {
+public class BeerManufacturersFragment extends Fragment {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private OnItemSelectedListener mListener;
 
-    public BeerCategoriesFragment() {
+    public BeerManufacturersFragment() {
+        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_beer_categories, container, false);
+        View view = inflater.inflate(R.layout.fragment_beer_manufacturers, container, false);
         ButterKnife.bind(this, view);
 
         LinearLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 2);
@@ -38,16 +40,15 @@ public class BeerCategoriesFragment extends Fragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.grid_layout_margin);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, spacingInPixels, false, 0));
 
-        BeerCategoriesRecyclerViewAdapter adapter = new BeerCategoriesRecyclerViewAdapter(mListener);
+        BeerManufacturersRecyclerViewAdapter adapter = new BeerManufacturersRecyclerViewAdapter(mListener);
 
         HomeScreenViewModel model = ViewModelProviders.of(getActivity()).get(HomeScreenViewModel.class);
-        model.getBeerCategories().observe(getActivity(), adapter::submitList);
+        model.getBeerManufacturers().observe(getActivity(), adapter::submitList);
 
         recyclerView.setAdapter(adapter);
 
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -66,6 +67,6 @@ public class BeerCategoriesFragment extends Fragment {
     }
 
     public interface OnItemSelectedListener {
-        void onBeerCategorySelected(String name);
+        void onBeerManufacturerSelected(String name);
     }
 }

@@ -7,6 +7,20 @@
     android:layout_marginBottom="8dp">
 
         <TextView
+            android:id="@+id/beerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Name"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photo" />
+
+        <TextView
             android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,12 +30,12 @@
             android:text="Comment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/photo" />
+            app:layout_constraintTop_toBottomOf="@+id/beerName" />
 
         <ImageView
             android:id="@+id/avatar"
-            android:layout_width="24sp"
-            android:layout_height="24sp"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -52,7 +66,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Author"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/avatar"
             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />

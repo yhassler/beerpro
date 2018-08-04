@@ -1,4 +1,4 @@
-package ch.beerpro;
+package ch.beerpro.home;
 
 import android.content.ContentResolver;
 import android.net.Uri;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import ch.beerpro.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;

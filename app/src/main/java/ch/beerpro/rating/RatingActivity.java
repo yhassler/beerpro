@@ -1,4 +1,4 @@
-package ch.beerpro;
+package ch.beerpro.rating;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,13 +17,10 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.R;
 import ch.beerpro.models.Beer;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -218,9 +215,8 @@ public class RatingActivity extends AppCompatActivity {
     private void saveRating() {
         float rating = addRatingBar.getRating();
         String comment = ratingText.getText().toString();
-
         // TODO show a spinner!
-
+        // TODO return the new rating to update the new average immediately
         model.saveRating(model.getItem(), rating, comment, model.getPhoto())
                 .addOnSuccessListener(task -> onBackPressed())
                 .addOnFailureListener(error -> Log.e(TAG, "Could not save rating", error));

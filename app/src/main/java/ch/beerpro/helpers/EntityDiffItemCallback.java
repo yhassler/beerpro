@@ -1,4 +1,4 @@
-package ch.beerpro.search.utils;
+package ch.beerpro.helpers;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;

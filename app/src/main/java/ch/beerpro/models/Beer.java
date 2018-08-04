@@ -97,7 +97,7 @@ public class Beer implements Entity, Serializable {
         return avgRating;
     }
 
-    public void setAvgRating(int avgRating) {
+    public void setAvgRating(float avgRating) {
         this.avgRating = avgRating;
     }
 

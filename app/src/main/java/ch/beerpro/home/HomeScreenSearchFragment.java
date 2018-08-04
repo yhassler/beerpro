@@ -1,4 +1,4 @@
-package ch.beerpro;
+package ch.beerpro.home;
 
 import android.app.ActivityOptions;
 import androidx.fragment.app.Fragment;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.viewpager.widget.ViewPager;
+import ch.beerpro.R;
 import ch.beerpro.helpers.ViewPagerAdapter;
 import ch.beerpro.search.SearchActivity;
 import com.google.android.material.tabs.TabLayout;

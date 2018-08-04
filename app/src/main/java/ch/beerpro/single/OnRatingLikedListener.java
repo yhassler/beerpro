@@ -1,5 +1,7 @@
 package ch.beerpro.single;
 
+import ch.beerpro.models.Rating;
+
 public interface OnRatingLikedListener {
-    void onRatingLikedListener(String ratingId);
+    void onRatingLikedListener(Rating rating);
 }

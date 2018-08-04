@@ -24,12 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeScreenActivity"
+            android:name=".home.HomeScreenActivity"
             android:label="@string/title_activity_home_screen"
             android:theme="@style/AppTheme" />
         <activity android:name=".search.SearchActivity" />
         <activity
-            android:name=".SingleBeerActivity"
+            android:name=".single.SingleBeerActivity"
             android:label="@string/title_activity_single_beer"
             android:parentActivityName=".search.SearchActivity"
             android:theme="@style/DetailsPageTheme">
@@ -37,10 +37,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.beerpro.search.SearchActivity" />
         </activity>
-        <activity android:name=".RatingActivity">
+        <activity android:name=".rating.RatingActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SingleBeerActivity" />
+                android:value=".single.SingleBeerActivity" />
         </activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

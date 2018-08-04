@@ -1,4 +1,4 @@
-package ch.beerpro;
+package ch.beerpro.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,16 +11,17 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.R;
 import ch.beerpro.helpers.BackgroundImageProvider;
 import ch.beerpro.helpers.StringItemCallback;
 
 
-public class BeerManufacturersRecyclerViewAdapter
-        extends ListAdapter<String, BeerManufacturersRecyclerViewAdapter.ViewHolder> {
+public class BeerCategoriesRecyclerViewAdapter
+        extends ListAdapter<String, BeerCategoriesRecyclerViewAdapter.ViewHolder> {
 
-    private final BeerManufacturersFragment.OnItemSelectedListener listener;
+    private final BeerCategoriesFragment.OnItemSelectedListener listener;
 
-    public BeerManufacturersRecyclerViewAdapter(BeerManufacturersFragment.OnItemSelectedListener listener) {
+    public BeerCategoriesRecyclerViewAdapter(BeerCategoriesFragment.OnItemSelectedListener listener) {
         super(new StringItemCallback());
         this.listener = listener;
     }
@@ -29,7 +30,7 @@ public class BeerManufacturersRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.fragment_beer_manufacturers_card, parent, false);
+        View view = layoutInflater.inflate(R.layout.fragment_beer_categories_card, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,12 +52,12 @@ public class BeerManufacturersRecyclerViewAdapter
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(String item, int position, BeerManufacturersFragment.OnItemSelectedListener listener) {
+        void bind(String item, int position, BeerCategoriesFragment.OnItemSelectedListener listener) {
             content.setText(item);
             Context resources = itemView.getContext();
-            imageView.setImageDrawable(BackgroundImageProvider.getBackgroundImage(resources, position + 10));
+            imageView.setImageDrawable(BackgroundImageProvider.getBackgroundImage(resources, position));
             if (listener != null) {
-                itemView.setOnClickListener(v -> listener.onBeerManufacturerSelected(item));
+                itemView.setOnClickListener(v -> listener.onBeerCategorySelected(item));
             }
         }
     }

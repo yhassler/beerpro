@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
-    tools:context=".SingleBeerActivity">
+    tools:context=".single.SingleBeerActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -31,7 +31,7 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bg_bottles"
-                app:layout_collapseMode="parallax"/>
+                app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -49,7 +49,7 @@
         android:layout_height="match_parent"
         app:behavior_overlapTop="64dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".SingleBeerActivity"
+        tools:context=".single.SingleBeerActivity"
         tools:showIn="@layout/activity_single_beer">
 
         <LinearLayout
@@ -73,9 +73,9 @@
 
                     <ImageView
                         android:id="@+id/photo"
-                        android:transitionName="image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:transitionName="image"
                         app:srcCompat="@drawable/ic_beer_glass_empty" />
 
                 </androidx.cardview.widget.CardView>
@@ -191,8 +191,8 @@
                             android:numStars="5"
                             android:rating="0"
                             android:stepSize="0.5"
-                            android:transitionName="rating"
                             android:theme="@style/RatingBar"
+                            android:transitionName="rating"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/separator3" />
@@ -237,8 +237,8 @@
                                 android:layout_weight="1"
                                 android:drawableTop="@drawable/ic_more_horiz_black_24dp"
                                 android:drawableTint="@android:color/darker_gray"
-                                android:textColor="@android:color/darker_gray"
                                 android:text="Aktionen"
+                                android:textColor="@android:color/darker_gray"
                                 android:textSize="10sp" />
 
                             <View
@@ -262,6 +262,7 @@
                                 android:layout_width="1dp"
                                 android:layout_height="match_parent"
                                 android:background="#ffeeeeee" />
+
                             <Button
                                 android:id="@+id/button2"
                                 style="?android:attr/borderlessButtonStyle"
@@ -323,7 +324,7 @@
                 android:layout_height="64dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-<!--
+    <!--
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

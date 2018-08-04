@@ -65,4 +65,5 @@ public class FirestoreQueryLiveDataArray<T extends Entity> extends LiveData<List
         Log.e(TAG, "Error:", e);
     }
 
+
 }

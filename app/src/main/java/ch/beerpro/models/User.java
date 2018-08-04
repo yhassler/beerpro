@@ -11,16 +11,16 @@ public class User implements Entity {
 
     @Exclude
     private String id;
-    private String photo;
     private String name;
+    private String photo;
 
     public User() {
     }
 
-    public User(String id, String photo, String name) {
+    public User(String id, String name, String photo) {
         this.id = id;
-        this.photo = photo;
         this.name = name;
+        this.photo = photo;
     }
 
     @Override

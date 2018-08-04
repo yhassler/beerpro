@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import ch.beerpro.R;
-import ch.beerpro.SingleBeerActivity;
+import ch.beerpro.single.SingleBeerActivity;
 import ch.beerpro.models.Beer;
 
 import android.os.Bundle;

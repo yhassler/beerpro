@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -15,7 +14,7 @@ import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.models.Beer;
 import ch.beerpro.search.MyBeersFragment.OnItemSelectedListener;
-import ch.beerpro.search.utils.EntityDiffItemCallback;
+import ch.beerpro.helpers.EntityDiffItemCallback;
 import com.squareup.picasso.Picasso;
 
 
