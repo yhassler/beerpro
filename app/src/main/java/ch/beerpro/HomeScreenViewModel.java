@@ -10,16 +10,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.*;
 
-public class HomeScreenActivityViewModel extends ViewModel {
+public class HomeScreenViewModel extends ViewModel {
 
-    private static final String TAG = "SearchActivityViewModel";
+    private static final String TAG = "SearchViewModel";
     private final FirestoreQueryLiveDataArray<Beer> allBeers = new FirestoreQueryLiveDataArray<>(
             FirebaseFirestore.getInstance().collection("beers").orderBy(Beer.FIELD_NAME), Beer.class);
 
     private final LiveData<List<String>> beerCategories;
     private final LiveData<List<String>> beerManufacturers;
 
-    public HomeScreenActivityViewModel() {
+    public HomeScreenViewModel() {
         beerCategories = Transformations.map(allBeers, projectBeersToCagetories());
         beerManufacturers = Transformations.map(allBeers, projectBeersToManufacturers());
     }

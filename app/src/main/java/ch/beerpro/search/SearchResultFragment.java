@@ -47,7 +47,7 @@ public class SearchResultFragment extends Fragment {
 
         adapter = new SearchResultRecyclerViewAdapter(mListener);
 
-        SearchActivityViewModel model = ViewModelProviders.of(getActivity()).get(SearchActivityViewModel.class);
+        SearchViewModel model = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
         model.getFilteredBeers().observe(getActivity(), this::handleBeersChanged);
 
         recyclerView.setAdapter(adapter);

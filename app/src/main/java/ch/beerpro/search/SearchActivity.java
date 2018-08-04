@@ -25,7 +25,7 @@ public class SearchActivity extends AppCompatActivity
         implements SearchResultFragment.OnItemSelectedListener, SearchSuggestionsFragment.OnItemSelectedListener,
         MyBeersFragment.OnItemSelectedListener {
 
-    private SearchActivityViewModel model;
+    private SearchViewModel model;
     private ViewPagerAdapter adapter;
     private EditText searchEditText;
 
@@ -53,7 +53,7 @@ public class SearchActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        model = ViewModelProviders.of(this).get(SearchActivityViewModel.class);
+        model = ViewModelProviders.of(this).get(SearchViewModel.class);
 
         FirebaseFirestore.setLoggingEnabled(true);
     }

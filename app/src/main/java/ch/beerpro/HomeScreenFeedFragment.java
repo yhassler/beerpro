@@ -16,11 +16,11 @@ import com.squareup.picasso.Picasso;
 import androidx.fragment.app.Fragment;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
-public class HomeScreenActivityFeedFragment extends Fragment {
+public class HomeScreenFeedFragment extends Fragment {
 
     private static final String TAG = "FeedFragment";
 
-    public HomeScreenActivityFeedFragment() {
+    public HomeScreenFeedFragment() {
     }
 
     @Override

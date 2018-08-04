@@ -1,27 +1,31 @@
 package ch.beerpro;
 
-import android.graphics.Color;
-import android.os.Build;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.models.Beer;
+import ch.beerpro.models.Rating;
+import ch.beerpro.search.adapters.MyBeersRecyclerViewAdapter;
+import ch.beerpro.single.OnRatingLikedListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.view.View;
 import com.squareup.picasso.Picasso;
 
-public class SingleBeerActivity extends AppCompatActivity {
+import java.util.List;
+
+public class SingleBeerActivity extends AppCompatActivity implements OnRatingLikedListener {
 
     public static final String ITEM = "item";
 
@@ -33,9 +37,6 @@ public class SingleBeerActivity extends AppCompatActivity {
 
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
-
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
 
     @BindView(R.id.photo)
     ImageView photo;
@@ -58,6 +59,14 @@ public class SingleBeerActivity extends AppCompatActivity {
     @BindView(R.id.category)
     TextView category;
 
+    @BindView(R.id.addRatingBar)
+    RatingBar addRatingBar;
+
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+
+    private RatingsRecyclerViewAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +75,33 @@ public class SingleBeerActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
-        update(item);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
-        SingleBeerActivityViewModel model = ViewModelProviders.of(this).get(SingleBeerActivityViewModel.class);
-        model.getBeer(item.getId()).observe(this, this::update);
+        adapter = new RatingsRecyclerViewAdapter(this);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
+        recyclerView.setAdapter(adapter);
+
+        Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
+        updateBeer(item);
+
+        SingleBeerViewModel model = ViewModelProviders.of(this).get(SingleBeerViewModel.class);
+        model.getBeer(item.getId()).observe(this, this::updateBeer);
+        model.getRatings(item.getId()).observe(this, this::updateRatings);
+
+        addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
     }
 
-    private void update(Beer item) {
+    private void addNewRating(RatingBar ratingBar, float v, boolean b) {
+        Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
+        Intent intent = new Intent(this, RatingActivity.class);
+        intent.putExtra(RatingActivity.ITEM, item);
+        intent.putExtra(RatingActivity.RATING, v);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, addRatingBar, "rating");
+        startActivity(intent, options.toBundle());
+    }
+
+    private void updateBeer(Beer item) {
         name.setText(item.getName());
         manufacturer.setText(item.getManufacturer());
         category.setText(item.getCategory());
@@ -82,7 +110,15 @@ public class SingleBeerActivity extends AppCompatActivity {
         ratingBar.setNumStars(5);
         ratingBar.setRating(item.getAvgRating());
         numRatings.setText(getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));
-
         collapsingToolbar.setTitle(item.getName());
+    }
+
+    private void updateRatings(List<Rating> ratings) {
+        adapter.submitList(ratings);
+    }
+
+    @Override
+    public void onRatingLikedListener(String ratingId) {
+
     }
 }

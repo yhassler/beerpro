@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
     tools:context=".SingleBeerActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -30,8 +31,7 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bg_bottles"
-                app:layout_collapseMode="parallax"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed" />
+                app:layout_collapseMode="parallax"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -97,7 +97,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="152dp"
-                            android:layout_marginTop="40dp"
+                            android:layout_marginTop="24dp"
                             android:text="4.8"
                             android:textSize="30sp"
                             app:layout_constraintStart_toStartOf="parent"
@@ -122,8 +122,8 @@
                             android:layout_height="wrap_content"
                             android:isIndicator="true"
                             android:numStars="5"
-                            android:rating="3"
-                            android:stepSize="1"
+                            android:rating="3.3"
+                            android:stepSize="0.5"
                             android:theme="@style/RatingBar"
                             app:layout_constraintStart_toStartOf="@+id/avgRating"
                             app:layout_constraintTop_toBottomOf="@+id/avgRating" />
@@ -133,8 +133,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_marginTop="32dp"
                             android:background="#ffeeeeee"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
@@ -146,7 +145,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
-                            android:text="Quöllfrisch"
+                            android:text="Quöllfrisch Hell"
                             android:textAppearance="?attr/textAppearanceListItem"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/manufacturer" />
@@ -167,9 +166,50 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
-                            android:text="Keine Ahnung"
+                            android:text="Pale Lager"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/name" />
+
+                        <View
+                            android:id="@+id/separator3"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#ffeeeeee"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/category" />
+
+                        <RatingBar
+                            android:id="@+id/addRatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:isIndicator="false"
+                            android:numStars="5"
+                            android:rating="0"
+                            android:stepSize="0.5"
+                            android:transitionName="rating"
+                            android:theme="@style/RatingBar"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/separator3" />
+
+                        <TextView
+                            android:id="@+id/addRatingExplanation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Neue Bewertung durch klicken und ziehen hinzufügen"
+                            android:textSize="10sp"
+                            android:textStyle="italic"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/addRatingBar" />
+
 
                         <View
                             android:id="@+id/separator2"
@@ -179,7 +219,7 @@
                             android:background="#ffeeeeee"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/category" />
+                            app:layout_constraintTop_toBottomOf="@+id/addRatingExplanation" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -266,6 +306,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingStart="8dp"
@@ -279,17 +320,19 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="8dp" />
+                android:layout_height="64dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
+<!--
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:scaleType="centerInside"
+        android:tint="@color/colorPrimary"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+        app:srcCompat="@drawable/ic_star_brown_24dp" />
+-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

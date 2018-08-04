@@ -1,7 +1,6 @@
 package ch.beerpro;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.helpers.GridSpacingItemDecoration;
-import ch.beerpro.search.SearchActivityViewModel;
-import ch.beerpro.search.adapters.MyBeersRecyclerViewAdapter;
 
 
 public class BeerCategoriesFragment extends Fragment {
@@ -43,7 +40,7 @@ public class BeerCategoriesFragment extends Fragment {
 
         BeerCategoriesRecyclerViewAdapter adapter = new BeerCategoriesRecyclerViewAdapter(mListener);
 
-        HomeScreenActivityViewModel model = ViewModelProviders.of(getActivity()).get(HomeScreenActivityViewModel.class);
+        HomeScreenViewModel model = ViewModelProviders.of(getActivity()).get(HomeScreenViewModel.class);
         model.getBeerCategories().observe(getActivity(), adapter::submitList);
 
         recyclerView.setAdapter(adapter);

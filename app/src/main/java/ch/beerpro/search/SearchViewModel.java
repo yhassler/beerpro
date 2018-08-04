@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SearchActivityViewModel extends ViewModel {
+public class SearchViewModel extends ViewModel {
 
-    private static final String TAG = "SearchActivityViewModel";
+    private static final String TAG = "SearchViewModel";
     private final MutableLiveData<String> searchTerm = new MutableLiveData<>();
     private final FirestoreQueryLiveDataArray<Beer> allBeers =
             new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection("beers").orderBy(Beer.FIELD_NAME), Beer
@@ -23,7 +23,7 @@ public class SearchActivityViewModel extends ViewModel {
 
     private final LiveData<List<Beer>> filteredBeers;
 
-    public SearchActivityViewModel() {
+    public SearchViewModel() {
         filteredBeers = Transformations.map(LiveDataExtensions.combineLatest(searchTerm, allBeers), filterBeers());
     }
 

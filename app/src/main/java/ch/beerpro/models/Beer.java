@@ -9,6 +9,7 @@ import java.util.Objects;
 //@NoArgsConstructor
 public class Beer implements Entity, Serializable {
 
+    public static final String COLLECTION = "beers";
     public static final String FIELD_NAME = "name";
 
     @Exclude
@@ -17,13 +18,13 @@ public class Beer implements Entity, Serializable {
     private String name;
     private String category;
     private String photo;
-    private int avgRating;
+    private float avgRating;
     private int numRatings;
 
     public Beer() {
     }
 
-    public Beer(String id, String manufacturer, String name, String category, String photo, int avgRating,
+    public Beer(String id, String manufacturer, String name, String category, String photo, float avgRating,
                 int numRatings) {
         this.id = id;
         this.manufacturer = manufacturer;
@@ -92,7 +93,7 @@ public class Beer implements Entity, Serializable {
         this.photo = photo;
     }
 
-    public int getAvgRating() {
+    public float getAvgRating() {
         return avgRating;
     }
 

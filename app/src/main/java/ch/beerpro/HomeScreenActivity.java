@@ -1,6 +1,5 @@
 package ch.beerpro;
 
-import android.net.Uri;
 import android.os.Bundle;
 
 import ch.beerpro.helpers.ViewPagerAdapter;
@@ -41,9 +40,9 @@ public class HomeScreenActivity extends AppCompatActivity implements BeerCategor
 
     private void setupViewPager(ViewPager viewPager, TabLayout tabLayout) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new HomeScreenActivitySearchFragment());
-        adapter.addFragment(new HomeScreenActivityFeedFragment());
-        adapter.addFragment(new HomeScreenActivityProfileFragment());
+        adapter.addFragment(new HomeScreenSearchFragment());
+        adapter.addFragment(new HomeScreenFeedFragment());
+        adapter.addFragment(new HomeScreenProfileFragment());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_search_black_24dp);

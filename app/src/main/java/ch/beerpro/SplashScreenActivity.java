@@ -7,17 +7,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import ch.beerpro.models.User;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static final String TAG = SplashScreenActivity.class.getSimpleName();
+    private static final String TAG = "SplashScreenActivity";
 
     private static final int RC_SIGN_IN = 123;
 
@@ -40,23 +42,20 @@ public class SplashScreenActivity extends AppCompatActivity {
 
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
-                List<AuthUI.IdpConfig> providers = Arrays.asList(
-                        new AuthUI.IdpConfig.EmailBuilder().build(),
+                List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
                         new AuthUI.IdpConfig.GoogleBuilder().build());
 
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(providers)
-                                .setLogo(R.drawable.beer_glass_icon)
-                                .setTheme(R.style.LoginScreenTheme)
-                                .build(),
-                        RC_SIGN_IN);
+                startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers)
+                        .setLogo(R.drawable.beer_glass_icon).setTheme(R.style.LoginScreenTheme).build(), RC_SIGN_IN);
             }, 1000);
 
 
         } else {
             Log.i(TAG, "User found, redirect to Home screen");
+            // We save all logged in users so we can query them later on.
+            User user = new User(null, currentUser.getDisplayName(), currentUser.getPhotoUrl().toString());
+            FirebaseFirestore.getInstance().collection(User.COLLECTION).document(currentUser.getUid()).set(user);
+
             startActivity(new Intent(this, HomeScreenActivity.class));
         }
     }
@@ -69,7 +68,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 Log.i(TAG, "User signed in");
             } else if (response == null) {
                 Log.w(TAG, "User cancelled signing in");

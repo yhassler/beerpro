@@ -1,7 +1,6 @@
 package ch.beerpro;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -42,7 +41,7 @@ public class BeerManufacturersFragment extends Fragment {
 
         BeerManufacturersRecyclerViewAdapter adapter = new BeerManufacturersRecyclerViewAdapter(mListener);
 
-        HomeScreenActivityViewModel model = ViewModelProviders.of(getActivity()).get(HomeScreenActivityViewModel.class);
+        HomeScreenViewModel model = ViewModelProviders.of(getActivity()).get(HomeScreenViewModel.class);
         model.getBeerManufacturers().observe(getActivity(), adapter::submitList);
 
         recyclerView.setAdapter(adapter);

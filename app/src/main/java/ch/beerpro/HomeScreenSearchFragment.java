@@ -1,7 +1,6 @@
 package ch.beerpro;
 
 import android.app.ActivityOptions;
-import android.util.Log;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -9,21 +8,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import ch.beerpro.helpers.ViewPagerAdapter;
 import ch.beerpro.search.SearchActivity;
-import ch.beerpro.search.SearchActivityViewModel;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.Arrays;
-
-public class HomeScreenActivitySearchFragment extends Fragment {
+public class HomeScreenSearchFragment extends Fragment {
 
     private static final String TAG = "HomeScreenActSearch";
     private ViewPagerAdapter adapter;
 
-    public HomeScreenActivitySearchFragment() {
+    public HomeScreenSearchFragment() {
     }
 
     @Override

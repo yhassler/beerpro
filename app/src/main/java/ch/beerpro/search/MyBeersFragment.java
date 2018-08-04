@@ -44,7 +44,7 @@ public class MyBeersFragment extends Fragment {
 
         adapter = new MyBeersRecyclerViewAdapter(mListener);
 
-        SearchActivityViewModel model = ViewModelProviders.of(getActivity()).get(SearchActivityViewModel.class);
+        SearchViewModel model = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
         model.getAllBeers().observe(getActivity(), this::handleBeersChanged);
 
         recyclerView.setAdapter(adapter);
