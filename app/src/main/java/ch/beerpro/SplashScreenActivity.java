@@ -40,25 +40,23 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         if (currentUser == null) {
             Log.i(TAG, "No user found, redirect to Login screen");
-
-            final Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
-                        new AuthUI.IdpConfig.GoogleBuilder().build());
-
-                startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers)
-                        .setLogo(R.drawable.beer_glass_icon).setTheme(R.style.LoginScreenTheme).build(), RC_SIGN_IN);
-            }, 1000);
-
-
+            List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.GoogleBuilder().build());
+            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setIsSmartLockEnabled(false)
+                    .setAvailableProviders(providers).setLogo(R.drawable.beer_glass_icon)
+                    .setTheme(R.style.LoginScreenTheme).build(), RC_SIGN_IN);
         } else {
             Log.i(TAG, "User found, redirect to Home screen");
-            // We save all logged in users so we can query them later on.
-            User user = new User(null, currentUser.getDisplayName(), currentUser.getPhotoUrl().toString());
-            FirebaseFirestore.getInstance().collection(User.COLLECTION).document(currentUser.getUid()).set(user);
-
-            startActivity(new Intent(this, HomeScreenActivity.class));
+            redirectToHomeScreenActivity(currentUser);
         }
+    }
+
+    private void redirectToHomeScreenActivity(FirebaseUser currentUser) {
+        // We save all logged in users so we can query them later on.
+        User user = new User(null, currentUser.getDisplayName(), currentUser.getPhotoUrl().toString());
+        FirebaseFirestore.getInstance().collection(User.COLLECTION).document(currentUser.getUid()).set(user);
+
+        startActivity(new Intent(this, HomeScreenActivity.class));
+        finish();
     }
 
     @Override
@@ -71,6 +69,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 Log.i(TAG, "User signed in");
+                redirectToHomeScreenActivity(firebaseUser);
             } else if (response == null) {
                 Log.w(TAG, "User cancelled signing in");
             } else {

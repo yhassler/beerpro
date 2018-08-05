@@ -37,7 +37,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ch.beerpro.search.SearchActivity" />
         </activity>
-        <activity android:name=".rating.RatingActivity">
+        <activity android:name=".rating.RatingActivity"  android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".single.SingleBeerActivity" />
