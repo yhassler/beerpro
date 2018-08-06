@@ -1,8 +1,10 @@
 package ch.beerpro.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import ch.beerpro.R;
+import ch.beerpro.SplashScreenActivity;
 import ch.beerpro.helpers.ViewPagerAdapter;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,8 +19,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class HomeScreenActivity extends AppCompatActivity implements BeerCategoriesFragment
-        .OnItemSelectedListener, BeerManufacturersFragment.OnItemSelectedListener {
+public class HomeScreenActivity extends AppCompatActivity
+        implements BeerCategoriesFragment.OnItemSelectedListener, BeerManufacturersFragment.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +90,11 @@ public class HomeScreenActivity extends AppCompatActivity implements BeerCategor
     }
 
     private void logout() {
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> finish());
-
+        AuthUI.getInstance().signOut(this).addOnCompleteListener(task -> {
+            Intent intent = new Intent(HomeScreenActivity.this, SplashScreenActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     @Override
