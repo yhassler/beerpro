@@ -7,8 +7,8 @@ android {
         applicationId "ch.beerpro"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 2
-        versionName "Alpha 2"
+        versionCode 7
+        versionName "Alpha 7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -34,8 +34,11 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-beta01'
     implementation 'com.google.firebase:firebase-firestore:17.0.4'
     implementation 'com.firebaseui:firebase-ui-firestore:4.0.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
+
+    // an alternative to picasso
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
     implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
     implementation 'com.github.yalantis:ucrop:2.2.2-native'

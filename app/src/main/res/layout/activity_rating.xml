@@ -17,8 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" app:layout_collapseMode="pin"
-            android:theme="@style/ToolBarStyle" />
+            android:theme="@style/ToolBarStyle"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -136,12 +137,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:paddingBottom="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
                 android:gravity="top"
-                android:inputType="textMultiLine"
+                android:inputType="textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine"
                 android:minLines="2"
+                android:paddingBottom="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/avatar"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -174,24 +175,24 @@
                     android:text="Ort Hinzufügen"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="10sp" />
-<!--
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#ffeeeeee" />
+                <!--
+                                <View
+                                    android:layout_width="1dp"
+                                    android:layout_height="match_parent"
+                                    android:background="#ffeeeeee" />
 
-                <Button
-                    android:id="@+id/button3"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_bookmark_brown_24dp"
-                    android:drawableTint="@android:color/darker_gray"
-                    android:text="Wunschliste"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="10sp" />
--->
+                                <Button
+                                    android:id="@+id/button3"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:drawableTop="@drawable/ic_bookmark_brown_24dp"
+                                    android:drawableTint="@android:color/darker_gray"
+                                    android:text="Wunschliste"
+                                    android:textColor="@android:color/darker_gray"
+                                    android:textSize="10sp" />
+                -->
             </LinearLayout>
 
 

@@ -19,11 +19,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.models.Beer;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 import pl.tajchert.nammu.Nammu;
@@ -101,7 +101,7 @@ public class RatingActivity extends AppCompatActivity {
 
         if (user != null) {
             Uri photoUrl = user.getPhotoUrl();
-            Picasso.get().load(photoUrl).transform(new CropCircleTransformation()).into(avatar);
+            Glide.with(this).load(photoUrl).apply(new RequestOptions().circleCrop()).into(avatar);
         }
         if (model.getPhoto() != null) {
             photo.setImageURI(model.getPhoto());

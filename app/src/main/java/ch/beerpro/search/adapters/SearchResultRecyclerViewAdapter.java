@@ -15,7 +15,8 @@ import ch.beerpro.R;
 import ch.beerpro.models.Beer;
 import ch.beerpro.search.SearchResultFragment.OnItemSelectedListener;
 import ch.beerpro.helpers.EntityDiffItemCallback;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 
 public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchResultRecyclerViewAdapter.ViewHolder> {
@@ -72,7 +73,8 @@ public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchRes
             manufacturer.setText(item.getManufacturer());
             category.setText(item.getCategory());
             name.setText(item.getName());
-            Picasso.get().load(item.getPhoto()).resize(240, 240).centerInside().into(photo);
+            Glide.with(itemView).load(item.getPhoto()).apply(new RequestOptions().override(240, 240).centerInside())
+                    .into(photo);
             ratingBar.setNumStars(5);
             ratingBar.setRating(item.getAvgRating());
             numRatings.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));

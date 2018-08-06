@@ -54,8 +54,6 @@ public class SearchActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
 
         model = ViewModelProviders.of(this).get(SearchViewModel.class);
-
-        FirebaseFirestore.setLoggingEnabled(true);
     }
 
     @Override

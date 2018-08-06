@@ -4,50 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
     tools:context=".single.SingleBeerActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bg_bottles"
-                app:layout_collapseMode="parallax" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_overlapTop="64dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".single.SingleBeerActivity"
         tools:showIn="@layout/activity_single_beer">
@@ -62,10 +26,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/bg_bottles" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="120dp"
                     android:layout_height="160dp"
                     android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="128dp"
                     app:cardCornerRadius="8dp"
                     app:cardElevation="5dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +58,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="192dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -230,7 +205,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/separator2">
 
                             <Button
-                                android:id="@+id/button"
+                                android:id="@+id/actionsButton"
                                 style="?android:attr/borderlessButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -310,10 +285,6 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingEnd="8dp"
-                        android:paddingRight="8dp"
                         tools:listitem="@layout/ratings_entry" />
                 </LinearLayout>
 
@@ -324,16 +295,27 @@
                 android:layout_height="64dp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-    <!--
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:scaleType="centerInside"
-        android:tint="@color/colorPrimary"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_star_brown_24dp" />
--->
+        android:elevation="4dp"
+        android:orientation="vertical"
+        app:layout_behavior="ch.beerpro.ToolbarScrollingBehaviour">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="24dp"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:theme="@style/ToolBarStyle"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

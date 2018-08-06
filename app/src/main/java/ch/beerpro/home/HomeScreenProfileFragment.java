@@ -1,10 +1,7 @@
 package ch.beerpro.home;
 
-import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ch.beerpro.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class HomeScreenProfileFragment extends Fragment {
 
@@ -46,7 +37,8 @@ public class HomeScreenProfileFragment extends Fragment {
             String name = user.getDisplayName();
             userProfileNameText.setText(name);
             Uri photoUrl = user.getPhotoUrl();
-            Picasso.get().load(photoUrl).transform(new CropCircleTransformation()).into(userProfileImageView);
+            Glide.with(this).load(photoUrl).apply(new RequestOptions().circleCrop()).into(userProfileImageView);
+
         }
 
         return rootView;

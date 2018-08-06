@@ -41,6 +41,14 @@ public class Rating implements Entity {
 
     }
 
+    @Override
+    public String toString() {
+        return "Rating{" + "id='" + id + '\'' + ", beerId='" + beerId + '\'' + ", beerName='" + beerName + '\'' +
+                ", userId='" + userId + '\'' + ", userName='" + userName + '\'' + ", userPhoto='" + userPhoto + '\'' +
+                ", photo='" + photo + '\'' + ", rating=" + rating + ", comment='" + comment + '\'' + ", likes=" +
+                likes + ", creationDate=" + creationDate + '}';
+    }
+
     public String getBeerName() {
         return beerName;
     }

@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.helpers.EntityDiffItemCallback;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 import java.text.DateFormat;
 
@@ -87,17 +87,18 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
                     DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(item.getCreationDate());
             date.setText(formattedDate);
 
-            if(item.getPhoto() != null) {
-                Picasso.get().load(item.getPhoto()).into(photo);
+            if (item.getPhoto() != null) {
+                Glide.with(itemView).load(item.getPhoto()).into(photo);
             } else {
+                Glide.with(itemView).clear(photo);
                 photo.setVisibility(View.GONE);
             }
 
             authorName.setText(item.getUserName());
-            Picasso.get().load(item.getUserPhoto()).transform(new CropCircleTransformation()).into(avatar);
+            Glide.with(itemView).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
 
             numLikes.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getLikes().size()));
-            if(item.getLikes().containsKey(user.getUid())) {
+            if (item.getLikes().containsKey(user.getUid())) {
                 like.setColorFilter(itemView.getResources().getColor(R.color.colorPrimary));
             } else {
                 like.setColorFilter(itemView.getResources().getColor(android.R.color.darker_gray));

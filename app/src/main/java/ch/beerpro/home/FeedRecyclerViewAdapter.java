@@ -1,5 +1,7 @@
 package ch.beerpro.home;
 
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +17,16 @@ import ch.beerpro.R;
 import ch.beerpro.helpers.EntityDiffItemCallback;
 import ch.beerpro.models.Rating;
 import ch.beerpro.single.OnRatingLikedListener;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 import java.text.DateFormat;
 
 
 public class FeedRecyclerViewAdapter extends ListAdapter<Rating, FeedRecyclerViewAdapter.ViewHolder> {
+
+    private static final String TAG = "FeedRecyclerViewAdapter";
 
     private static final EntityDiffItemCallback<Rating> DIFF_CALLBACK = new EntityDiffItemCallback<>();
 
@@ -83,6 +87,7 @@ public class FeedRecyclerViewAdapter extends ListAdapter<Rating, FeedRecyclerVie
         }
 
         void bind(Rating item, OnRatingLikedListener listener) {
+            Log.i(TAG, item.toString());
             beerName.setText(item.getBeerName());
             comment.setText(item.getComment());
 
@@ -93,16 +98,18 @@ public class FeedRecyclerViewAdapter extends ListAdapter<Rating, FeedRecyclerVie
             date.setText(formattedDate);
 
             if (item.getPhoto() != null) {
-                Picasso.get().load(item.getPhoto()).into(photo);
+                // Take a look at https://bumptech.github.io/glide/int/recyclerview.html
+                Glide.with(itemView).load(item.getPhoto()).into(photo);
             } else {
+                Glide.with(itemView).clear(photo);
                 photo.setVisibility(View.GONE);
             }
 
             authorName.setText(item.getUserName());
-            Picasso.get().load(item.getUserPhoto()).transform(new CropCircleTransformation()).into(avatar);
+            Glide.with(itemView).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
 
             numLikes.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getLikes().size()));
-            if(item.getLikes().containsKey(user.getUid())) {
+            if (item.getLikes().containsKey(user.getUid())) {
                 like.setColorFilter(itemView.getResources().getColor(R.color.colorPrimary));
             } else {
                 like.setColorFilter(itemView.getResources().getColor(android.R.color.darker_gray));
@@ -111,5 +118,8 @@ public class FeedRecyclerViewAdapter extends ListAdapter<Rating, FeedRecyclerVie
                 like.setOnClickListener(v -> listener.onRatingLikedListener(item));
             }
         }
+
+
+
     }
 }
