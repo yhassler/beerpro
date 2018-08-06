@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class SingleBeerActivity extends AppCompatActivity implements OnRatingLikedListener {
 
-    public static final String ITEM = "item";
+    public static final String ITEM_ID = "item_id";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -77,9 +78,10 @@ public class SingleBeerActivity extends AppCompatActivity implements OnRatingLik
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
+        String beerId = getIntent().getExtras().getString(ITEM_ID);
 
         model = ViewModelProviders.of(this).get(SingleBeerViewModel.class);
+        model.setBeerId(beerId);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -87,17 +89,16 @@ public class SingleBeerActivity extends AppCompatActivity implements OnRatingLik
         adapter = new RatingsRecyclerViewAdapter(this, model.getCurrentUser());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
 
-        model.getBeer(item.getId()).observe(this, this::updateBeer);
-        model.getRatings(item.getId()).observe(this, this::updateRatings);
+        model.getBeer().observe(this, this::updateBeer);
+        model.getRatings().observe(this, this::updateRatings);
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
     }
 
     private void addNewRating(RatingBar ratingBar, float v, boolean b) {
-        Beer item = (Beer) getIntent().getExtras().getSerializable(ITEM);
         Intent intent = new Intent(this, RatingActivity.class);
-        intent.putExtra(RatingActivity.ITEM, item);
+        intent.putExtra(RatingActivity.ITEM, model.getBeer().getValue());
         intent.putExtra(RatingActivity.RATING, v);
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, addRatingBar, "rating");
         startActivity(intent, options.toBundle());

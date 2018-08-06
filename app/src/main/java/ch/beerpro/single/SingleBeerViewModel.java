@@ -1,9 +1,8 @@
 package ch.beerpro.single;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.*;
 import ch.beerpro.models.*;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 import ch.beerpro.helpers.EntityClassSnapshotParser;
 import ch.beerpro.helpers.FirestoreQueryLiveData;
 import ch.beerpro.helpers.FirestoreQueryLiveDataArray;
@@ -18,31 +17,32 @@ import com.google.firebase.firestore.Transaction;
 import java.util.List;
 import java.util.Map;
 
+import static androidx.lifecycle.Transformations.switchMap;
+
 public class SingleBeerViewModel extends ViewModel {
 
-    private FirestoreQueryLiveDataArray<Rating> ratings;
-    private EntityClassSnapshotParser<Rating> parser = new EntityClassSnapshotParser<>(Rating.class);
-
-    private LiveData<Beer> beer;
-
-    // TODO move to constructor, see
-    // https://medium.com/@dpreussler/add-the-new-viewmodel-to-your-mvvm-36bfea86b159
-
-    public LiveData<List<Rating>> getRatings(String id) {
-        if (ratings == null) {
-            ratings = new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection(Rating.COLLECTION)
+    private static final EntityClassSnapshotParser<Rating> parser = new EntityClassSnapshotParser<>(Rating.class);
+    private final MutableLiveData<String> beerId = new MutableLiveData<>();
+    private final LiveData<Beer> beer = switchMap(beerId, beerId -> {
+        DocumentReference document = FirebaseFirestore.getInstance().collection(Beer.COLLECTION).document(beerId);
+        return new FirestoreQueryLiveData<>(document, Beer.class);
+    });
+    private final LiveData<List<Rating>> ratings = switchMap(beerId, beerId -> new FirestoreQueryLiveDataArray<>(
+            FirebaseFirestore.getInstance().collection(Rating.COLLECTION)
                     .orderBy(Rating.FIELD_CREATION_DATE, Query.Direction.DESCENDING)
-                    .whereEqualTo(Rating.FIELD_BEER_ID, id), Rating.class);
-        }
+                    .whereEqualTo(Rating.FIELD_BEER_ID, beerId), Rating.class));
+
+
+    public LiveData<List<Rating>> getRatings() {
         return ratings;
     }
 
-    public LiveData<Beer> getBeer(String id) {
-        if (beer == null) {
-            DocumentReference document = FirebaseFirestore.getInstance().collection(Beer.COLLECTION).document(id);
-            beer = new FirestoreQueryLiveData<>(document, Beer.class);
-        }
+    public LiveData<Beer> getBeer() {
         return beer;
+    }
+
+    public void setBeerId(String beerId) {
+        this.beerId.setValue(beerId);
     }
 
     public FirebaseUser getCurrentUser() {
@@ -70,4 +70,5 @@ public class SingleBeerViewModel extends ViewModel {
             return null;
         });
     }
+
 }

@@ -61,7 +61,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public void onSearchResultListItemSelected(View animationSource, Beer item) {
         Intent intent = new Intent(this, SingleBeerActivity.class);
-        intent.putExtra(SingleBeerActivity.ITEM, item);
+        intent.putExtra(SingleBeerActivity.ITEM_ID, item.getId());
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, animationSource, "image");
         startActivity(intent, options.toBundle());
     }
@@ -77,7 +77,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public void onMyBeersListItemSelected(View animationSource, Beer item) {
         Intent intent = new Intent(this, SingleBeerActivity.class);
-        intent.putExtra(SingleBeerActivity.ITEM, item);
+        intent.putExtra(SingleBeerActivity.ITEM_ID, item.getId());
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, animationSource, "image");
         startActivity(intent, options.toBundle());
     }
