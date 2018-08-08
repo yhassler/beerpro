@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeScreenSearchFragment">
+    tools:context=".presentation.home.HomeScreenSearchFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="false">
@@ -52,6 +52,7 @@
 
                 <LinearLayout
 
+                    android:id="@+id/myBeers"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -77,6 +78,7 @@
 
 
                     <TextView
+                        android:id="@+id/myBeersCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -92,6 +94,7 @@
 
                 <LinearLayout
 
+                    android:id="@+id/myRatings"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -117,6 +120,7 @@
 
 
                     <TextView
+                        android:id="@+id/myRatingsCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -133,6 +137,7 @@
 
                 <LinearLayout
 
+                    android:id="@+id/myWishlist"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -158,6 +163,7 @@
 
 
                     <TextView
+                        android:id="@+id/myWishlistCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -174,6 +180,7 @@
 
                 <LinearLayout
 
+                    android:id="@+id/myFridge"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="?android:attr/selectableItemBackground"
@@ -199,6 +206,7 @@
 
 
                     <TextView
+                        android:id="@+id/myFridgeCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -209,6 +217,6 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

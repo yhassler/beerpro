@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeScreenSearchFragment">
+    tools:context=".presentation.home.HomeScreenSearchFragment">
 
     <!-- We need  focusableInTouchMode to prevent the initial rendering from scrolling down -->
     <androidx.constraintlayout.widget.ConstraintLayout

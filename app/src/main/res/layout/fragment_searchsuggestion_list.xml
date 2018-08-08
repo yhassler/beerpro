@@ -9,7 +9,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".search.SearchResultFragment"
+    tools:context=".presentation.search.SearchResultFragment"
     tools:listitem="@layout/fragment_searchresult_entry">
 
 

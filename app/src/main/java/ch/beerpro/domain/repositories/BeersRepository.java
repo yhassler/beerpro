@@ -1,0 +1,19 @@
+package ch.beerpro.domain.repositories;
+
+import androidx.lifecycle.LiveData;
+import ch.beerpro.domain.helpers.FirestoreQueryLiveDataArray;
+import ch.beerpro.domain.models.Beer;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.List;
+
+public class BeersRepository {
+
+    private final FirestoreQueryLiveDataArray<Beer> allBeers =
+            new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection(Beer.COLLECTION), Beer.class);
+
+
+    public LiveData<List<Beer>> getAllBeers() {
+        return allBeers;
+    }
+}

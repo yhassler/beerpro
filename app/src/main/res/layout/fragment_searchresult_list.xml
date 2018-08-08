@@ -8,7 +8,7 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:animateLayoutChanges="true"
-    tools:context=".search.SearchResultFragment">
+    tools:context=".presentation.search.SearchResultFragment">
 
 
     <LinearLayout

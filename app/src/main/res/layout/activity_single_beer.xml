@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    tools:context=".single.SingleBeerActivity">
+    tools:context=".presentation.details.DetailsActivity">
 
 
     <androidx.core.widget.NestedScrollView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".single.SingleBeerActivity"
+        tools:context=".presentation.details.DetailsActivity"
         tools:showIn="@layout/activity_single_beer">
 
         <LinearLayout
@@ -221,15 +221,16 @@
                                 android:layout_height="match_parent"
                                 android:background="#ffeeeeee" />
 
-                            <Button
-                                android:id="@+id/button3"
+                            <ToggleButton
+                                android:id="@+id/wishlist"
                                 style="?android:attr/borderlessButtonStyle"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:drawableTop="@drawable/ic_bookmark_brown_24dp"
                                 android:drawableTint="@android:color/darker_gray"
-                                android:text="Wunschliste"
+                                android:textOff="Wunschliste"
+                                android:textOn="Wunschliste"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="10sp" />
 
@@ -301,7 +302,7 @@
         android:layout_height="wrap_content"
         android:elevation="4dp"
         android:orientation="vertical"
-        app:layout_behavior="ch.beerpro.ToolbarScrollingBehaviour">
+        app:layout_behavior="ch.beerpro.presentation.helpers.ToolbarScrollingBehaviour">
 
         <View
             android:layout_width="match_parent"

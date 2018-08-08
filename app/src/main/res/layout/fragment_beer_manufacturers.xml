@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:listitem="@layout/fragment_beer_manufacturers_card"
-    tools:context=".home.BeerManufacturersFragment">
+    tools:context=".presentation.home.BeerManufacturersFragment">
 
 </androidx.recyclerview.widget.RecyclerView>

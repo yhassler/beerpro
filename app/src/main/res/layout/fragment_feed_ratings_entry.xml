@@ -11,6 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
         <TextView
             android:id="@+id/beerName"
             android:layout_width="match_parent"
@@ -36,18 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/beerName" />
 
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="32sp"
-            android:layout_height="32sp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-            tools:srcCompat="@tools:sample/avatars" />
-
         <RatingBar
             android:id="@+id/ratingBar"
             style="?android:attr/ratingBarStyleSmall"
@@ -62,6 +60,16 @@
             android:theme="@style/RatingBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="32sp"
+            android:layout_height="32sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/authorName"
@@ -91,33 +99,77 @@
             android:layout_marginEnd="16dp"
             android:text="20"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/like"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/like" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/authorName"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageView
-            android:id="@+id/like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/selectable_item_background_white"
-            android:clickable="true"
-            android:padding="8dp"
-            android:tint="@android:color/darker_gray"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/numLikes"
-            app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
-
-        <ImageView
-            android:id="@+id/photo"
+        <View
+            android:id="@+id/separator6"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="w,1:1"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:background="#ffeeeeee"
+            app:layout_constraintBottom_toTopOf="@+id/actionsLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            app:layout_constraintTop_toBottomOf="@+id/addRatingExplanation" />
+
+        <LinearLayout
+            android:id="@+id/actionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatar">
+
+            <Button
+                android:id="@+id/details"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_more_horiz_black_24dp"
+                android:drawableTint="@android:color/darker_gray"
+                android:text="Mehr Zum Bier"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#ffeeeeee" />
+
+            <Button
+                android:id="@+id/wishlist"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_bookmark_brown_24dp"
+                android:drawableTint="@android:color/darker_gray"
+                android:text="Wunschliste"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#ffeeeeee" />
+
+            <Button
+                android:id="@+id/like"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ic_thumb_up_black_24dp"
+                android:drawableTint="@android:color/darker_gray"
+                android:text="Gefällt mir"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="10sp" />
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

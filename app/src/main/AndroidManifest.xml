@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".presentation.splash.SplashScreenActivity"
             android:theme="@style/LoginScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,30 +24,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.HomeScreenActivity"
+            android:name=".presentation.home.HomeScreenActivity"
             android:label="@string/title_activity_home_screen"
             android:theme="@style/AppTheme" />
-        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".presentation.search.SearchActivity" />
         <activity
-            android:name=".single.SingleBeerActivity"
+            android:name=".presentation.details.DetailsActivity"
             android:label="@string/title_activity_single_beer"
-            android:parentActivityName=".search.SearchActivity"
+            android:parentActivityName=".presentation.search.SearchActivity"
             android:theme="@style/DetailsPageTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.beerpro.search.SearchActivity" />
+                android:value=".presentation.search.SearchActivity" />
         </activity>
         <activity
-            android:name=".rating.RatingActivity"
+            android:name=".presentation.createrating.CreateRatingActivity"
+            android:parentActivityName=".presentation.details.DetailsActivity"
             android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".single.SingleBeerActivity" />
+                android:value=".presentation.details.DetailsActivity" />
         </activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".presentation.wishlist.WishlistActivity"
+            android:label="@string/title_activity_wishlist"
+            android:parentActivityName=".presentation.home.HomeScreenActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.home.HomeScreenActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.myratings.MyRatingsActivity"
+            android:label="@string/title_activity_myratings"
+            android:parentActivityName=".presentation.home.HomeScreenActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.home.HomeScreenActivity" />
+        </activity>
     </application>
 
 </manifest>
