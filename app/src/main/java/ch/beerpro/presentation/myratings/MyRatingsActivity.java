@@ -59,7 +59,7 @@ public class MyRatingsActivity extends AppCompatActivity implements OnMyRatingIt
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                supportFinishAfterTransition();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

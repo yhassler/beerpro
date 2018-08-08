@@ -23,7 +23,7 @@ import static ch.beerpro.domain.helpers.LiveDataExtensions.combineLatest;
 
 public class MyRatingsViewModel extends ViewModel {
 
-    private static final String TAG = "MyRatingsViewModel";
+    private static final String TAG = "MyBeersViewModel";
 
     private final MutableLiveData<String> currentUserId = new MutableLiveData<>();
     private final LiveData<List<Rating>> myRatings;

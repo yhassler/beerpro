@@ -1,6 +1,7 @@
 package ch.beerpro.domain.repositories;
 
 import androidx.lifecycle.LiveData;
+import ch.beerpro.domain.helpers.FirestoreQueryLiveData;
 import ch.beerpro.domain.helpers.FirestoreQueryLiveDataArray;
 import ch.beerpro.domain.models.Beer;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -11,6 +12,11 @@ public class BeersRepository {
 
     private final FirestoreQueryLiveDataArray<Beer> allBeers =
             new FirestoreQueryLiveDataArray<>(FirebaseFirestore.getInstance().collection(Beer.COLLECTION), Beer.class);
+
+    public static LiveData<Beer> getBeer(String beerId) {
+        return new FirestoreQueryLiveData<>(
+                FirebaseFirestore.getInstance().collection(Beer.COLLECTION).document(beerId), Beer.class);
+    }
 
 
     public LiveData<List<Beer>> getAllBeers() {

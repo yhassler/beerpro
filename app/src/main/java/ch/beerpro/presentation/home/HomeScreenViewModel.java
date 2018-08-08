@@ -5,22 +5,16 @@ import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import ch.beerpro.domain.helpers.FirestoreQueryLiveDataArray;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.domain.repositories.LikesRepository;
-import ch.beerpro.domain.repositories.RatingsRepository;
-import ch.beerpro.domain.repositories.WishesRepository;
+import ch.beerpro.domain.repositories.*;
 import ch.beerpro.presentation.helpers.EntityClassSnapshotParser;
-import ch.beerpro.presentation.models.MyBeerFromRating;
-import ch.beerpro.presentation.models.MyBeerFromWishlist;
 import ch.beerpro.presentation.models.MyBeerItem;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.*;
 
@@ -54,8 +48,6 @@ public class HomeScreenViewModel extends ViewModel {
     };
 
     private final LikesRepository likesRepository;
-    private final LiveData<List<Beer>> allBeers = new FirestoreQueryLiveDataArray<>(
-            FirebaseFirestore.getInstance().collection(Beer.COLLECTION).orderBy(Beer.FIELD_NAME), Beer.class);
 
 
     private final LiveData<List<String>> beerCategories;
@@ -70,32 +62,23 @@ public class HomeScreenViewModel extends ViewModel {
     private final LiveData<List<Rating>> myRatings;
     private final LiveData<List<MyBeerItem>> myBeers;
     private final LiveData<Integer> myBeersUniqueCount;
+    private final BeersRepository beersRepository;
 
     public HomeScreenViewModel() {
         // TODO We should really be injecting these!
+        beersRepository = new BeersRepository();
         likesRepository = new LikesRepository();
         wishesRepository = new WishesRepository();
         ratingsRepository = new RatingsRepository();
 
+        LiveData<List<Beer>> allBeers = beersRepository.getAllBeers();
         beerCategories = map(allBeers, mapBeersToCategories);
         beerManufacturers = map(allBeers, mapBeersToManufacturers);
         myWishlist = switchMap(currentUserId, WishesRepository::getWishesByUser);
         myRatings = switchMap(currentUserId, RatingsRepository::getRatingsByUser);
 
-        myBeers = map(combineLatest(myWishlist, myRatings, map(allBeers, Entity::entitiesById)), input -> {
-            List<Wish> wishlist = input.getLeft();
-            List<Rating> ratings = input.getMiddle();
-            HashMap<String, Beer> beers = input.getRight();
-
-            ArrayList<MyBeerItem> result = new ArrayList<>();
-            for (Wish wish : wishlist) {
-                result.add(new MyBeerFromWishlist(wish, beers.get(wish.getBeerId())));
-            }
-            for (Rating rating : ratings) {
-                result.add(new MyBeerFromRating(rating, beers.get(rating.getBeerId())));
-            }
-            return result;
-        });
+        myBeers = map(combineLatest(myWishlist, myRatings, map(allBeers, Entity::entitiesById)),
+                MyBeersRepository::getMyBeers);
 
         myBeersUniqueCount = map(myBeers, beers -> {
             Set<String> ids = new HashSet<>();
@@ -111,6 +94,7 @@ public class HomeScreenViewModel extends ViewModel {
     FirebaseUser getCurrentUser() {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
+
 
     public LiveData<List<MyBeerItem>> getMyBeers() {
         return myBeers;

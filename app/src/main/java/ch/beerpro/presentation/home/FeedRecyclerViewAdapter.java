@@ -97,7 +97,7 @@ public class FeedRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, Fee
         }
 
         void bind(Rating item, Wish wish, OnFeedItemInteractionListener listener) {
-            // TODO This code is almost the same in MyRatingsRecyclerViewAdapter.. could be simplified
+            // TODO This code is almost the same in MyBeersRecyclerViewAdapter.. could be simplified
             // with databinding!
             beerName.setText(item.getBeerName());
             comment.setText(item.getComment());

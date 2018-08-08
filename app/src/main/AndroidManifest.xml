@@ -67,6 +67,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.home.HomeScreenActivity" />
         </activity>
+        <activity
+            android:name=".presentation.mybeers.MyBeersActivity"
+            android:label="@string/title_activity_mybeers"
+            android:parentActivityName=".presentation.home.HomeScreenActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".presentation.home.HomeScreenActivity" />
+        </activity>
     </application>
 
 </manifest>

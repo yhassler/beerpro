@@ -1,34 +1,24 @@
 package ch.beerpro.presentation.details;
 
-import androidx.lifecycle.*;
-import ch.beerpro.domain.models.*;
-import ch.beerpro.presentation.helpers.EntityClassSnapshotParser;
-import ch.beerpro.domain.helpers.FirestoreQueryLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 import ch.beerpro.domain.models.Beer;
-import ch.beerpro.domain.repositories.LikesRepository;
-import ch.beerpro.domain.repositories.RatingsRepository;
-import ch.beerpro.domain.repositories.WishesRepository;
+import ch.beerpro.domain.models.Rating;
+import ch.beerpro.domain.models.Wish;
+import ch.beerpro.domain.repositories.*;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.*;
+import java.util.List;
 
 import static androidx.lifecycle.Transformations.switchMap;
 import static ch.beerpro.domain.helpers.LiveDataExtensions.combineLatest;
 
-public class DetailsViewModel extends ViewModel {
+public class DetailsViewModel extends ViewModel implements CurrentUser {
 
-    private static final EntityClassSnapshotParser<Rating> parser = new EntityClassSnapshotParser<>(Rating.class);
     private final MutableLiveData<String> beerId = new MutableLiveData<>();
-    private final LiveData<Beer> beer = switchMap(beerId, beerId -> {
-        DocumentReference document = FirebaseFirestore.getInstance().collection(Beer.COLLECTION).document(beerId);
-        return new FirestoreQueryLiveData<>(document, Beer.class);
-    });
+    private final LiveData<Beer> beer = switchMap(beerId, BeersRepository::getBeer);
     private final LiveData<List<Rating>> ratings = switchMap(beerId, RatingsRepository::getRatingsByBeer);
-
 
     private final MutableLiveData<String> currentUserId = new MutableLiveData<>();
     private final LiveData<Wish> wish =
@@ -59,10 +49,6 @@ public class DetailsViewModel extends ViewModel {
 
     public void setBeerId(String beerId) {
         this.beerId.setValue(beerId);
-    }
-
-    public FirebaseUser getCurrentUser() {
-        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
     public void toggleLike(Rating rating) {

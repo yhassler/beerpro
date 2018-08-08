@@ -4,8 +4,14 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.ToggleButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -21,8 +27,6 @@ import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.createrating.CreateRatingActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -105,18 +109,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
     }
 
-    private void updateWishlist(Wish wish) {
-        if (wish != null) {
-            int color = getResources().getColor(R.color.colorPrimary);
-            setDrawableTint(wishlist, color);
-            wishlist.setChecked(true);
-        } else {
-            int color = getResources().getColor(android.R.color.darker_gray);
-            setDrawableTint(wishlist, color);
-            wishlist.setChecked(false);
-        }
-    }
-
     private void addNewRating(RatingBar ratingBar, float v, boolean b) {
         Intent intent = new Intent(this, CreateRatingActivity.class);
         intent.putExtra(CreateRatingActivity.ITEM, model.getBeer().getValue());
@@ -133,7 +125,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         dialog.setContentView(view);
         dialog.show();
     }
-
 
     private void updateBeer(Beer item) {
         name.setText(item.getName());
@@ -166,6 +157,29 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
          * */
         if (!wishlist.isChecked()) {
             updateWishlist(null);
+        }
+    }
+
+    private void updateWishlist(Wish wish) {
+        if (wish != null) {
+            int color = getResources().getColor(R.color.colorPrimary);
+            setDrawableTint(wishlist, color);
+            wishlist.setChecked(true);
+        } else {
+            int color = getResources().getColor(android.R.color.darker_gray);
+            setDrawableTint(wishlist, color);
+            wishlist.setChecked(false);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

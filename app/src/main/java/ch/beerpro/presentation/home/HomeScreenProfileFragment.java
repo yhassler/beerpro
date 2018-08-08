@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.presentation.mybeers.MyBeersActivity;
 import ch.beerpro.presentation.myratings.MyRatingsActivity;
 import ch.beerpro.presentation.wishlist.WishlistActivity;
 import com.bumptech.glide.Glide;
@@ -86,10 +87,15 @@ public class HomeScreenProfileFragment extends Fragment {
         startActivity(intent);
     }
 
-
     @OnClick(R.id.myWishlist)
     public void handleMyWishlistClick(View view) {
         Intent intent = new Intent(getActivity(), WishlistActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.myBeers)
+    public void handleMyBeersClick(View view) {
+        Intent intent = new Intent(getActivity(), MyBeersActivity.class);
         startActivity(intent);
     }
 
