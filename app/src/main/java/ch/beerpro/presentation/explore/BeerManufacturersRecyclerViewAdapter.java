@@ -30,7 +30,7 @@ public class BeerManufacturersRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.fragment_beer_manufacturers_card, parent, false);
+        View view = layoutInflater.inflate(R.layout.fragment_explore_beer_manufacturers_card, parent, false);
         return new ViewHolder(view);
     }
 

@@ -34,7 +34,7 @@ public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchRes
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.fragment_searchresult_entry, parent, false);
+        View view = layoutInflater.inflate(R.layout.fragment_searchresult_listentry, parent, false);
         return new ViewHolder(view);
     }
 

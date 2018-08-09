@@ -10,7 +10,7 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".presentation.explore.search.beers.SearchResultFragment"
-    tools:listitem="@layout/fragment_searchresult_entry">
+    tools:listitem="@layout/fragment_searchresult_listentry">
 
 
 </androidx.recyclerview.widget.RecyclerView>

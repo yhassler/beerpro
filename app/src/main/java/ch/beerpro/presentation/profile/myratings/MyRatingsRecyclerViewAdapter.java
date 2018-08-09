@@ -47,7 +47,7 @@ public class MyRatingsRecyclerViewAdapter
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.fragment_feed_ratings_entry, parent, false);
+        View view = layoutInflater.inflate(R.layout.fragment_ratings_listentry, parent, false);
         return new ViewHolder(view);
     }
 

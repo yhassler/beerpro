@@ -38,7 +38,7 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.ratings_entry, parent, false);
+        View view = layoutInflater.inflate(R.layout.activity_details_ratings_listentry, parent, false);
         return new ViewHolder(view);
     }
 

@@ -30,7 +30,7 @@ public class BeerManufacturersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_beer_manufacturers, container, false);
+        View view = inflater.inflate(R.layout.fragment_expore_beer_manufacturers, container, false);
         ButterKnife.bind(this, view);
 
         LinearLayoutManager layoutManager = new GridLayoutManager(view.getContext(), 2);

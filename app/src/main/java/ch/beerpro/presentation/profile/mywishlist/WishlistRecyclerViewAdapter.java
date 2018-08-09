@@ -41,7 +41,7 @@ public class WishlistRecyclerViewAdapter extends ListAdapter<Pair<Wish, Beer>, W
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.wishlist_entry, parent, false);
+        View view = layoutInflater.inflate(R.layout.activity_my_wishlist_listentry, parent, false);
         return new ViewHolder(view);
     }
 

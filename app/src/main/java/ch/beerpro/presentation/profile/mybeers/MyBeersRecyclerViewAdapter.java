@@ -57,7 +57,7 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.mybeers_entry, parent, false);
+        View view = layoutInflater.inflate(R.layout.activity_my_beers_listentry, parent, false);
         return new ViewHolder(view);
     }
 

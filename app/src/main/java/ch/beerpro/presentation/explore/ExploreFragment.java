@@ -33,7 +33,7 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        View rootView = inflater.inflate(R.layout.fragment_explore_screen, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
         ButterKnife.bind(this, rootView);
 
         adapter = new ViewPagerAdapter(getChildFragmentManager());

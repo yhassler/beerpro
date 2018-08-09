@@ -60,7 +60,7 @@ public class SearchSuggestionsRecyclerViewAdapter
                 view = layoutInflater.inflate(R.layout.fragment_searchsuggestion_header, parent, false);
                 break;
             default:
-                view = layoutInflater.inflate(R.layout.fragment_searchsuggestion_entry, parent, false);
+                view = layoutInflater.inflate(R.layout.fragment_searchsuggestion_listentry, parent, false);
                 break;
         }
 

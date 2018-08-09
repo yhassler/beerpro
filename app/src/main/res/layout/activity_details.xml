@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".presentation.details.DetailsActivity"
-        tools:showIn="@layout/activity_single_beer">
+        tools:showIn="@layout/activity_details">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                         android:id="@+id/recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:listitem="@layout/ratings_entry" />
+                        tools:listitem="@layout/activity_details_ratings_listentry" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
