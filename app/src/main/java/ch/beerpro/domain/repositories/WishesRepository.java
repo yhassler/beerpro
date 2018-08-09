@@ -2,8 +2,8 @@ package ch.beerpro.domain.repositories;
 
 import android.util.Pair;
 import androidx.lifecycle.LiveData;
-import ch.beerpro.domain.helpers.FirestoreQueryLiveData;
-import ch.beerpro.domain.helpers.FirestoreQueryLiveDataArray;
+import ch.beerpro.domain.utils.FirestoreQueryLiveData;
+import ch.beerpro.domain.utils.FirestoreQueryLiveDataArray;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Wish;
 import com.google.android.gms.tasks.Task;

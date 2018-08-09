@@ -1,6 +1,6 @@
 package ch.beerpro.domain.repositories;
 
-import ch.beerpro.presentation.helpers.EntityClassSnapshotParser;
+import ch.beerpro.presentation.utils.EntityClassSnapshotParser;
 import ch.beerpro.domain.models.Rating;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

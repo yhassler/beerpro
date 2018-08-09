@@ -1,7 +1,7 @@
 package ch.beerpro.domain.repositories;
 
 import androidx.lifecycle.LiveData;
-import ch.beerpro.domain.helpers.FirestoreQueryLiveDataArray;
+import ch.beerpro.domain.utils.FirestoreQueryLiveDataArray;
 import ch.beerpro.domain.models.Rating;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;

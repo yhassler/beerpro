@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import ch.beerpro.R;
-import ch.beerpro.presentation.home.HomeScreenActivity;
+import ch.beerpro.presentation.MainActivity;
 import ch.beerpro.domain.models.User;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -57,7 +57,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         FirebaseFirestore.getInstance().collection(User.COLLECTION).document(uid)
                 .update(User.FIELD_NAME, displayName, User.FIELD_PHOTO, photoUrl);
 
-        startActivity(new Intent(this, HomeScreenActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

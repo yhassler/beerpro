@@ -12,7 +12,7 @@ import com.google.android.gms.tasks.Task;
 import java.util.List;
 
 import static androidx.lifecycle.Transformations.switchMap;
-import static ch.beerpro.domain.helpers.LiveDataExtensions.combineLatest;
+import static ch.beerpro.domain.utils.LiveDataExtensions.combineLatest;
 
 public class DetailsViewModel extends ViewModel implements CurrentUser {
 

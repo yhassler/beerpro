@@ -3,21 +3,21 @@ package ch.beerpro.domain.repositories;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.presentation.models.MyBeerFromRating;
-import ch.beerpro.presentation.models.MyBeerFromWishlist;
-import ch.beerpro.presentation.models.MyBeerItem;
+import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromRating;
+import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromWishlist;
+import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.*;
 
 public class MyBeersRepository {
 
-    public static List<MyBeerItem> getMyBeers(Triple<List<Wish>, List<Rating>, HashMap<String, Beer>> input) {
+    public static List<MyBeer> getMyBeers(Triple<List<Wish>, List<Rating>, HashMap<String, Beer>> input) {
         List<Wish> wishlist = input.getLeft();
         List<Rating> ratings = input.getMiddle();
         HashMap<String, Beer> beers = input.getRight();
 
-        ArrayList<MyBeerItem> result = new ArrayList<>();
+        ArrayList<MyBeer> result = new ArrayList<>();
         Set<String> beersAlreadyOnTheList = new HashSet<>();
         for (Wish wish : wishlist) {
             String beerId = wish.getBeerId();
