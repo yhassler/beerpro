@@ -33,10 +33,10 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
 
     private static final DiffUtil.ItemCallback<Pair<Rating, Wish>> DIFF_CALLBACK = new EntityPairDiffItemCallback<>();
 
-    private final OnFeedItemInteractionListener listener;
+    private final OnRatingsItemInteractionListener listener;
     private final FirebaseUser user;
 
-    public RatingsRecyclerViewAdapter(OnFeedItemInteractionListener listener, FirebaseUser user) {
+    public RatingsRecyclerViewAdapter(OnRatingsItemInteractionListener listener, FirebaseUser user) {
         super(DIFF_CALLBACK);
         this.listener = listener;
         this.user = user;
@@ -96,7 +96,7 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(Rating item, Wish wish, OnFeedItemInteractionListener listener) {
+        void bind(Rating item, Wish wish, OnRatingsItemInteractionListener listener) {
             // TODO This code is almost the same in MyBeersRecyclerViewAdapter.. could be simplified
             // with databinding!
             beerName.setText(item.getBeerName());

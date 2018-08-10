@@ -1,4 +1,4 @@
-package ch.beerpro.domain.repositories;
+package ch.beerpro.data.repositories;
 
 import ch.beerpro.presentation.utils.EntityClassSnapshotParser;
 import ch.beerpro.domain.models.Rating;

@@ -1,5 +1,6 @@
 package ch.beerpro.presentation.explore.search.suggestions;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
+import ch.beerpro.domain.models.Search;
 import ch.beerpro.presentation.explore.search.suggestions.SearchSuggestionsFragment.OnItemSelectedListener;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class SearchSuggestionsRecyclerViewAdapter
         extends RecyclerView.Adapter<SearchSuggestionsRecyclerViewAdapter.ViewHolder> {
+
+    private static final String TAG = "SearchSuggestionsRecycl";
 
     private static final int VIEW_TYPE_NO_SEARCH_HEADER = 1;
     private static final int VIEW_TYPE_NO_SEARCH_ENTRY = 2;
@@ -29,24 +36,29 @@ public class SearchSuggestionsRecyclerViewAdapter
      *  - term 1
      *  - term 10
      * */
-    private final List<String> previousSearches;
+    private final List<String> previousSearches = new ArrayList<>();
     private final List<String> popularSearches;
     private final OnItemSelectedListener listener;
 
-    public SearchSuggestionsRecyclerViewAdapter(List<String> previousSearches, List<String> popularSearches,
-                                                OnItemSelectedListener listener) {
-        this.previousSearches = previousSearches;
+    public SearchSuggestionsRecyclerViewAdapter(List<String> popularSearches, OnItemSelectedListener listener) {
+        Log.i(TAG, "SearchSuggestionsRecyclerViewAdapter");
         this.popularSearches = popularSearches;
         this.listener = listener;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position == 0 || position - 1 == previousSearches.size()) {
-            return VIEW_TYPE_NO_SEARCH_HEADER;
-        } else {
-            return VIEW_TYPE_NO_SEARCH_ENTRY;
+    public void setPreviousSearches(List<Search> previousSearches) {
+        Log.i(TAG, "setPreviousSearches, length " + previousSearches.size());
+        this.previousSearches.clear();
+        Set<Search> alreadyAdded = new HashSet<>();
+        for (Search search : previousSearches) {
+            if (alreadyAdded.contains(search)) {
+                // don't add searches several times
+            } else {
+                alreadyAdded.add(search);
+                this.previousSearches.add(search.getTerm());
+            }
         }
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -83,7 +95,17 @@ public class SearchSuggestionsRecyclerViewAdapter
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if (position == 0 || position - 1 == previousSearches.size()) {
+            return VIEW_TYPE_NO_SEARCH_HEADER;
+        } else {
+            return VIEW_TYPE_NO_SEARCH_ENTRY;
+        }
+    }
+
+    @Override
     public int getItemCount() {
+        Log.i(TAG, "getItemCount " + (previousSearches.size() + popularSearches.size() + 2));
         return previousSearches.size() + popularSearches.size() + 2 /*headers*/;
     }
 

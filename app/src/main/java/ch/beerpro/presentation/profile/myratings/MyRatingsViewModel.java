@@ -7,8 +7,8 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.domain.repositories.RatingsRepository;
-import ch.beerpro.domain.repositories.WishesRepository;
+import ch.beerpro.data.repositories.RatingsRepository;
+import ch.beerpro.data.repositories.WishesRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

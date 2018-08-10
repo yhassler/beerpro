@@ -2,27 +2,55 @@ package ch.beerpro.presentation.explore.search.suggestions;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ch.beerpro.R;
+import ch.beerpro.domain.models.Search;
+import ch.beerpro.presentation.explore.search.SearchViewModel;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class SearchSuggestionsFragment extends Fragment {
 
-    private OnItemSelectedListener mListener;
+    private static final String TAG = "SearchSuggestionsFragme";
+
+    private OnItemSelectedListener listener;
+    private SearchSuggestionsRecyclerViewAdapter adapter;
 
     public SearchSuggestionsFragment() {
     }
 
+    private void updateMyLatestSearches(List<Search> searches) {
+        if (searches.isEmpty()) {
+            adapter.setPreviousSearches(Arrays.asList(new Search("", "-")));
+        } else {
+            adapter.setPreviousSearches(searches);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        Log.i(TAG, "onAttach");
+        super.onAttach(context);
+        if (context instanceof OnItemSelectedListener) {
+            listener = (OnItemSelectedListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnItemSelectedListener");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.fragment_searchsuggestion_list, container, false);
 
         Context context = view.getContext();
@@ -32,26 +60,20 @@ public class SearchSuggestionsFragment extends Fragment {
 
         recyclerView.addItemDecoration(new DividerItemDecoration(context, layoutManager.getOrientation()));
 
-        recyclerView.setAdapter(new SearchSuggestionsRecyclerViewAdapter(Arrays.asList("IPA"),
-                Arrays.asList("Moretti Limone", "Lager Hell"), mListener));
+        SearchViewModel model = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
 
+        adapter = new SearchSuggestionsRecyclerViewAdapter(Arrays.asList("Quöllfrisch", "Lager Hell", "IPA"), listener);
+        recyclerView.setAdapter(adapter);
+
+        // Aufgabe: Diesen Aufruf vor das erstellen eines neuen Adapters schieben und dann debuggen.
+        model.getMyLatestSearches().observe(getActivity(), this::updateMyLatestSearches);
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnItemSelectedListener) {
-            mListener = (OnItemSelectedListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnItemSelectedListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     public interface OnItemSelectedListener {

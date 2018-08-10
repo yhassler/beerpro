@@ -3,9 +3,13 @@ package ch.beerpro.presentation.explore.search;
 import android.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+import ch.beerpro.data.repositories.BeersRepository;
+import ch.beerpro.data.repositories.CurrentUser;
+import ch.beerpro.data.repositories.SearchesRepository;
+import ch.beerpro.data.repositories.WishesRepository;
 import ch.beerpro.domain.models.Beer;
-import ch.beerpro.domain.repositories.BeersRepository;
-import ch.beerpro.presentation.profile.mybeers.MyBeersViewModel;
+import ch.beerpro.domain.models.Search;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;
@@ -13,19 +17,29 @@ import java.util.Collections;
 import java.util.List;
 
 import static androidx.lifecycle.Transformations.map;
+import static androidx.lifecycle.Transformations.switchMap;
 import static ch.beerpro.domain.utils.LiveDataExtensions.zip;
 
-public class SearchViewModel extends MyBeersViewModel {
+public class SearchViewModel extends ViewModel implements CurrentUser {
 
     private static final String TAG = "SearchViewModel";
     private final MutableLiveData<String> searchTerm = new MutableLiveData<>();
+    private final MutableLiveData<String> currentUserId = new MutableLiveData<>();
 
     private final LiveData<List<Beer>> filteredBeers;
     private final BeersRepository beersRepository;
+    private final WishesRepository wishesRepository;
+    private final SearchesRepository searchesRepository;
+    private final LiveData<List<Search>> myLatestSearches;
 
     public SearchViewModel() {
         beersRepository = new BeersRepository();
+        wishesRepository = new WishesRepository();
+        searchesRepository = new SearchesRepository();
         filteredBeers = map(zip(searchTerm, getAllBeers()), SearchViewModel::filter);
+        myLatestSearches = switchMap(currentUserId, SearchesRepository::getLatestSearchesByUser);
+
+        currentUserId.setValue(getCurrentUser().getUid());
     }
 
     public LiveData<List<Beer>> getAllBeers() {
@@ -50,11 +64,24 @@ public class SearchViewModel extends MyBeersViewModel {
         return filtered;
     }
 
+    public LiveData<List<Search>> getMyLatestSearches() {
+        return myLatestSearches;
+    }
+
     public void setSearchTerm(String searchTerm) {
         this.searchTerm.setValue(searchTerm);
     }
 
     public LiveData<List<Beer>> getFilteredBeers() {
         return filteredBeers;
+    }
+
+
+    public void toggleItemInWishlist(String beerId) {
+        wishesRepository.toggleUserWishlistItem(getCurrentUser().getUid(), beerId);
+    }
+
+    public void addToSearchHistory(String term) {
+        searchesRepository.addSearchTerm(term);
     }
 }

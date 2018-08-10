@@ -2,6 +2,7 @@ package ch.beerpro.presentation.profile.mybeers;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
-import ch.beerpro.domain.models.Beer;
 import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyBeersFragment extends Fragment {
@@ -44,7 +45,7 @@ public class MyBeersFragment extends Fragment {
 
 
         MyBeersViewModel model = ViewModelProviders.of(getActivity()).get(MyBeersViewModel.class);
-        model.getMyBeers().observe(getActivity(), this::handleBeersChanged);
+        model.getMyFilteredBeers().observe(getActivity(), this::handleBeersChanged);
 
         adapter = new MyBeersRecyclerViewAdapter(interactionListener, model.getCurrentUser());
 
@@ -53,7 +54,7 @@ public class MyBeersFragment extends Fragment {
     }
 
     private void handleBeersChanged(List<MyBeer> beers) {
-        adapter.submitList(beers);
+        adapter.submitList(new ArrayList<>(beers));
         if (beers.isEmpty()) {
             emptyView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
@@ -77,9 +78,5 @@ public class MyBeersFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         interactionListener = null;
-    }
-
-    public interface OnItemSelectedListener {
-        void onMyBeersListItemSelected(View animationSource, Beer item);
     }
 }

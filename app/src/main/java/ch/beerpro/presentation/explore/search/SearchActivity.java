@@ -3,6 +3,7 @@ package ch.beerpro.presentation.explore.search;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -12,14 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 import ch.beerpro.R;
-import ch.beerpro.presentation.details.DetailsActivity;
 import ch.beerpro.domain.models.Beer;
-
-import android.os.Bundle;
-
-import ch.beerpro.presentation.profile.mybeers.OnMyBeerItemInteractionListener;
+import ch.beerpro.presentation.details.DetailsActivity;
 import ch.beerpro.presentation.explore.search.beers.SearchResultFragment;
 import ch.beerpro.presentation.explore.search.suggestions.SearchSuggestionsFragment;
+import ch.beerpro.presentation.profile.mybeers.MyBeersViewModel;
+import ch.beerpro.presentation.profile.mybeers.OnMyBeerItemInteractionListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.common.base.Strings;
 
@@ -27,9 +26,11 @@ public class SearchActivity extends AppCompatActivity
         implements SearchResultFragment.OnItemSelectedListener, SearchSuggestionsFragment.OnItemSelectedListener,
         OnMyBeerItemInteractionListener {
 
-    private SearchViewModel model;
+    private SearchViewModel searchViewModel;
     private ViewPagerAdapter adapter;
     private EditText searchEditText;
+    private MyBeersViewModel myBeersViewModel;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,9 @@ public class SearchActivity extends AppCompatActivity
         searchEditText = findViewById(R.id.searchEditText);
         searchEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                handleSearch(searchEditText.getText().toString());
+                String text = searchEditText.getText().toString();
+                handleSearch(text);
+                addSearchTermToUserHistory(text);
             }
             return false;
         });
@@ -50,12 +53,24 @@ public class SearchActivity extends AppCompatActivity
         });
 
         ViewPager viewPager = findViewById(R.id.viewpager);
-        TabLayout tabLayout = findViewById(R.id.tablayout);
+        tabLayout = findViewById(R.id.tablayout);
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setSaveFromParentEnabled(false);
+        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
+        myBeersViewModel = ViewModelProviders.of(this).get(MyBeersViewModel.class);
+    }
 
-        model = ViewModelProviders.of(this).get(SearchViewModel.class);
+    private void handleSearch(String text) {
+        searchViewModel.setSearchTerm(text);
+        myBeersViewModel.setSearchTerm(text);
+        adapter.setShowSuggestions(Strings.isNullOrEmpty(text));
+        adapter.notifyDataSetChanged();
+    }
+
+    private void addSearchTermToUserHistory(String text) {
+        searchViewModel.addToSearchHistory(text);
     }
 
     @Override
@@ -72,12 +87,6 @@ public class SearchActivity extends AppCompatActivity
         searchEditText.setSelection(text.length());
         hideKeyboard();
         handleSearch(text);
-    }
-
-    private void handleSearch(String text) {
-        model.setSearchTerm(text);
-        adapter.setShowSuggestions(Strings.isNullOrEmpty(text));
-        adapter.notifyDataSetChanged();
     }
 
     private void hideKeyboard() {
@@ -97,6 +106,6 @@ public class SearchActivity extends AppCompatActivity
 
     @Override
     public void onWishClickedListener(Beer item) {
-        model.toggleItemInWishlist(item.getId());
+        searchViewModel.toggleItemInWishlist(item.getId());
     }
 }

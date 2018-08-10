@@ -2,7 +2,7 @@ package ch.beerpro.presentation.ratings;
 
 import ch.beerpro.domain.models.Rating;
 
-public interface OnFeedItemInteractionListener {
+public interface OnRatingsItemInteractionListener {
     void onRatingLikedListener(Rating rating);
 
     void onMoreClickedListener(Rating rating);

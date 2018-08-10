@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RatingsFragment extends Fragment
-        implements OnFeedItemInteractionListener, SwipeRefreshLayout.OnRefreshListener {
+        implements OnRatingsItemInteractionListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = "FeedFragment";
 

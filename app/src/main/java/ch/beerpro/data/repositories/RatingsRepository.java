@@ -1,4 +1,4 @@
-package ch.beerpro.domain.repositories;
+package ch.beerpro.data.repositories;
 
 import androidx.lifecycle.LiveData;
 import ch.beerpro.domain.utils.FirestoreQueryLiveDataArray;

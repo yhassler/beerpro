@@ -1,5 +1,6 @@
 package ch.beerpro.presentation.profile.mybeers;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,10 @@ import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.presentation.utils.DrawableHelpers;
 import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
 import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromRating;
 import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromWishlist;
+import ch.beerpro.presentation.utils.DrawableHelpers;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseUser;
@@ -122,13 +123,10 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
             addedAt.setText(formattedDate);
 
             if (entry instanceof MyBeerFromWishlist) {
-                Wish wish = ((MyBeerFromWishlist) entry).getWish();
                 DrawableHelpers
                         .setDrawableTint(removeFromWishlist, itemView.getResources().getColor(R.color.colorPrimary));
                 onTheListSince.setText("auf der Wunschliste seit");
             } else if (entry instanceof MyBeerFromRating) {
-                Rating rating = ((MyBeerFromRating) entry).getRating();
-
                 DrawableHelpers.setDrawableTint(removeFromWishlist,
                         itemView.getResources().getColor(android.R.color.darker_gray));
                 removeFromWishlist.setText("Wunschliste");

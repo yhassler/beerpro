@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.domain.repositories.*;
+import ch.beerpro.data.repositories.*;
 import com.google.android.gms.tasks.Task;
 
 import java.util.List;

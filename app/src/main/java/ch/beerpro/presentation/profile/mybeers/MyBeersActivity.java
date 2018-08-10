@@ -3,9 +3,11 @@ package ch.beerpro.presentation.profile.mybeers;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
@@ -31,6 +33,33 @@ public class MyBeersActivity extends AppCompatActivity implements OnMyBeerItemIn
         getSupportActionBar().setTitle(getString(R.string.title_activity_mybeers));
 
         model = ViewModelProviders.of(this).get(MyBeersViewModel.class);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_my_beers, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                model.setSearchTerm(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                model.setSearchTerm(null);
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(() -> {
+            model.setSearchTerm(null);
+            return false;
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

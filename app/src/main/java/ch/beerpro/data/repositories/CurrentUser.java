@@ -1,4 +1,4 @@
-package ch.beerpro.domain.repositories;
+package ch.beerpro.data.repositories;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

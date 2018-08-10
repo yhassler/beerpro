@@ -2,16 +2,13 @@ package ch.beerpro.presentation.explore.search.beers;
 
 import android.content.Context;
 import android.os.Bundle;
-
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
@@ -25,34 +22,16 @@ public class SearchResultFragment extends Fragment {
 
     private static final String TAG = "SearchResultFragment";
 
-    private OnItemSelectedListener mListener;
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     @BindView(R.id.emptyView)
     View emptyView;
 
+    private OnItemSelectedListener mListener;
     private SearchResultRecyclerViewAdapter adapter;
 
     public SearchResultFragment() {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_searchresult_list, container, false);
-        ButterKnife.bind(this, view);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new SearchResultRecyclerViewAdapter(mListener);
-
-        SearchViewModel model = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
-        model.getFilteredBeers().observe(getActivity(), this::handleBeersChanged);
-
-        recyclerView.setAdapter(adapter);
-        return view;
     }
 
     private void handleBeersChanged(List<Beer> beers) {
@@ -74,6 +53,23 @@ public class SearchResultFragment extends Fragment {
         } else {
             throw new RuntimeException(context.toString() + " must implement OnItemSelectedListener");
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_searchresult_list, container, false);
+        ButterKnife.bind(this, view);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new SearchResultRecyclerViewAdapter(mListener);
+
+        SearchViewModel model = ViewModelProviders.of(getActivity()).get(SearchViewModel.class);
+        model.getFilteredBeers().observe(getActivity(), this::handleBeersChanged);
+
+        recyclerView.setAdapter(adapter);
+        return view;
     }
 
     @Override

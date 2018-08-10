@@ -1,13 +1,12 @@
 package ch.beerpro.presentation.explore.search;
 
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import ch.beerpro.presentation.profile.mybeers.MyBeersFragment;
 import ch.beerpro.presentation.explore.search.beers.SearchResultFragment;
 import ch.beerpro.presentation.explore.search.suggestions.SearchSuggestionsFragment;
+import ch.beerpro.presentation.profile.mybeers.MyBeersFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -18,6 +17,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private Fragment myBeersFragment;
 
     private boolean showSuggestions = true;
+    private boolean hasChanged = false;
 
     public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
@@ -28,6 +28,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public void setShowSuggestions(boolean showSuggestions) {
         this.showSuggestions = showSuggestions;
+        this.hasChanged = true;
     }
 
     @Override
@@ -35,27 +36,32 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 if (showSuggestions) {
-                    Log.i(TAG, "Showing suggestions");
                     return searchSuggestionsFragment;
                 } else {
-                    Log.i(TAG, "Showing results");
                     return searchResultFragment;
                 }
             case 1:
-                Log.i(TAG, "Showing my beers");
                 return myBeersFragment;
         }
         return null;
     }
 
     @Override
-    public int getItemPosition(@NonNull Object object) {
-        return POSITION_NONE;
+    public int getCount() {
+        return 2;
     }
 
     @Override
-    public int getCount() {
-        return 2;
+    public int getItemPosition(@NonNull Object object) {
+        // https://stackoverflow.com/questions/7746652/fragment-in-viewpager-using-fragmentpageradapter-is-blank-the-second-time-it-is
+        if (object instanceof MyBeersFragment) {
+            return POSITION_UNCHANGED;
+        } else if (hasChanged) {
+            this.hasChanged = false;
+            return POSITION_NONE;
+        } else {
+            return POSITION_UNCHANGED;
+        }
     }
 
     @Override
