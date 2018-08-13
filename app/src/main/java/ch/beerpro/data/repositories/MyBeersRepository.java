@@ -1,18 +1,23 @@
 package ch.beerpro.data.repositories;
 
+import androidx.lifecycle.LiveData;
 import ch.beerpro.domain.models.Beer;
+import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
 import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromRating;
 import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromWishlist;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.*;
 
+import static androidx.lifecycle.Transformations.map;
+import static ch.beerpro.domain.utils.LiveDataExtensions.combineLatest;
+
 public class MyBeersRepository {
 
-    public static List<MyBeer> getMyBeers(Triple<List<Wish>, List<Rating>, HashMap<String, Beer>> input) {
+    private static List<MyBeer> getMyBeers(Triple<List<Wish>, List<Rating>, HashMap<String, Beer>> input) {
         List<Wish> wishlist = input.getLeft();
         List<Rating> ratings = input.getMiddle();
         HashMap<String, Beer> beers = input.getRight();
@@ -37,6 +42,13 @@ public class MyBeersRepository {
         }
         Collections.sort(result, (r1, r2) -> r2.getDate().compareTo(r1.getDate()));
         return result;
+    }
+
+
+    public LiveData<List<MyBeer>> getMyBeers(LiveData<List<Beer>> allBeers, LiveData<List<Wish>> myWishlist,
+                                             LiveData<List<Rating>> myRatings) {
+        return map(combineLatest(myWishlist, myRatings, map(allBeers, Entity::entitiesById)),
+                MyBeersRepository::getMyBeers);
     }
 
 }

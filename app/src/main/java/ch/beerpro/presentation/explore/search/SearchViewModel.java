@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 import ch.beerpro.data.repositories.BeersRepository;
 import ch.beerpro.data.repositories.CurrentUser;
 import ch.beerpro.data.repositories.SearchesRepository;
-import ch.beerpro.data.repositories.WishesRepository;
+import ch.beerpro.data.repositories.WishlistRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Search;
 import com.google.common.base.Strings;
@@ -28,13 +28,13 @@ public class SearchViewModel extends ViewModel implements CurrentUser {
 
     private final LiveData<List<Beer>> filteredBeers;
     private final BeersRepository beersRepository;
-    private final WishesRepository wishesRepository;
+    private final WishlistRepository wishlistRepository;
     private final SearchesRepository searchesRepository;
     private final LiveData<List<Search>> myLatestSearches;
 
     public SearchViewModel() {
         beersRepository = new BeersRepository();
-        wishesRepository = new WishesRepository();
+        wishlistRepository = new WishlistRepository();
         searchesRepository = new SearchesRepository();
         filteredBeers = map(zip(searchTerm, getAllBeers()), SearchViewModel::filter);
         myLatestSearches = switchMap(currentUserId, SearchesRepository::getLatestSearchesByUser);
@@ -78,7 +78,7 @@ public class SearchViewModel extends ViewModel implements CurrentUser {
 
 
     public void toggleItemInWishlist(String beerId) {
-        wishesRepository.toggleUserWishlistItem(getCurrentUser().getUid(), beerId);
+        wishlistRepository.toggleUserWishlistItem(getCurrentUser().getUid(), beerId);
     }
 
     public void addToSearchHistory(String term) {

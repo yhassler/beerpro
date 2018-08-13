@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import ch.beerpro.data.repositories.*;
 import ch.beerpro.domain.models.Beer;
-import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
@@ -17,8 +16,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static androidx.lifecycle.Transformations.map;
-import static androidx.lifecycle.Transformations.switchMap;
-import static ch.beerpro.domain.utils.LiveDataExtensions.combineLatest;
 import static ch.beerpro.domain.utils.LiveDataExtensions.zip;
 
 public class MyBeersViewModel extends ViewModel implements CurrentUser {
@@ -26,21 +23,22 @@ public class MyBeersViewModel extends ViewModel implements CurrentUser {
     private static final String TAG = "MyBeersViewModel";
     private final MutableLiveData<String> searchTerm = new MutableLiveData<>();
 
-    private final MutableLiveData<String> currentUserId = new MutableLiveData<>();
-    private final WishesRepository wishesRepository;
+    private final WishlistRepository wishlistRepository;
     private final LiveData<List<MyBeer>> myFilteredBeers;
 
     public MyBeersViewModel() {
 
+        wishlistRepository = new WishlistRepository();
         BeersRepository beersRepository = new BeersRepository();
-        wishesRepository = new WishesRepository();
+        MyBeersRepository myBeersRepository = new MyBeersRepository();
+        RatingsRepository ratingsRepository = new RatingsRepository();
 
         LiveData<List<Beer>> allBeers = beersRepository.getAllBeers();
-        LiveData<List<Wish>> myWishlist = switchMap(currentUserId, WishesRepository::getWishesByUser);
-        LiveData<List<Rating>> myRatings = switchMap(currentUserId, RatingsRepository::getRatingsByUser);
+        MutableLiveData<String> currentUserId = new MutableLiveData<>();
+        LiveData<List<Wish>> myWishlist = wishlistRepository.getMyWishlist(currentUserId);
+        LiveData<List<Rating>> myRatings = ratingsRepository.getMyRatings(currentUserId);
 
-        LiveData<List<MyBeer>> myBeers = map(combineLatest(myWishlist, myRatings, map(allBeers, Entity::entitiesById)),
-                MyBeersRepository::getMyBeers);
+        LiveData<List<MyBeer>> myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings);
 
         myFilteredBeers = map(zip(searchTerm, myBeers), MyBeersViewModel::filter);
 
@@ -70,7 +68,7 @@ public class MyBeersViewModel extends ViewModel implements CurrentUser {
     }
 
     public void toggleItemInWishlist(String beerId) {
-        wishesRepository.toggleUserWishlistItem(getCurrentUser().getUid(), beerId);
+        wishlistRepository.toggleUserWishlistItem(getCurrentUser().getUid(), beerId);
     }
 
     public void setSearchTerm(String searchTerm) {

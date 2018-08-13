@@ -3,37 +3,41 @@ package ch.beerpro.presentation.details;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import ch.beerpro.data.repositories.*;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.data.repositories.*;
 import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
-import static androidx.lifecycle.Transformations.switchMap;
-import static ch.beerpro.domain.utils.LiveDataExtensions.combineLatest;
-
 public class DetailsViewModel extends ViewModel implements CurrentUser {
 
     private final MutableLiveData<String> beerId = new MutableLiveData<>();
-    private final LiveData<Beer> beer = switchMap(beerId, BeersRepository::getBeer);
-    private final LiveData<List<Rating>> ratings = switchMap(beerId, RatingsRepository::getRatingsByBeer);
+    private final LiveData<Beer> beer;
+    private final LiveData<List<Rating>> ratings;
+    private final LiveData<Wish> wish;
 
-    private final MutableLiveData<String> currentUserId = new MutableLiveData<>();
-    private final LiveData<Wish> wish =
-            switchMap(combineLatest(currentUserId, getBeer()), WishesRepository::getUserWishListFor);
     private final LikesRepository likesRepository;
-    private final WishesRepository wishesRepository;
+    private final WishlistRepository wishlistRepository;
 
     public DetailsViewModel() {
         // TODO We should really be injecting these!
+        BeersRepository beersRepository = new BeersRepository();
+        RatingsRepository ratingsRepository = new RatingsRepository();
         likesRepository = new LikesRepository();
-        wishesRepository = new WishesRepository();
+        wishlistRepository = new WishlistRepository();
 
+        MutableLiveData<String> currentUserId = new MutableLiveData<>();
+        beer = beersRepository.getBeer(beerId);
+        wish = wishlistRepository.getMyWishForBeer(currentUserId, getBeer());
+        ratings = ratingsRepository.getRatingsForBeer(beerId);
         currentUserId.setValue(getCurrentUser().getUid());
     }
 
+    public LiveData<Beer> getBeer() {
+        return beer;
+    }
 
     public LiveData<Wish> getWish() {
         return wish;
@@ -41,10 +45,6 @@ public class DetailsViewModel extends ViewModel implements CurrentUser {
 
     public LiveData<List<Rating>> getRatings() {
         return ratings;
-    }
-
-    public LiveData<Beer> getBeer() {
-        return beer;
     }
 
     public void setBeerId(String beerId) {
@@ -56,6 +56,6 @@ public class DetailsViewModel extends ViewModel implements CurrentUser {
     }
 
     public Task<Void> toggleItemInWishlist(String itemId) {
-        return wishesRepository.toggleUserWishlistItem(getCurrentUser().getUid(), itemId);
+        return wishlistRepository.toggleUserWishlistItem(getCurrentUser().getUid(), itemId);
     }
 }

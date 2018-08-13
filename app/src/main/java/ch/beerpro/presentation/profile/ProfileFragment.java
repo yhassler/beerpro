@@ -18,6 +18,7 @@ import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.MainViewModel;
 import ch.beerpro.presentation.profile.mybeers.MyBeersActivity;
+import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
 import ch.beerpro.presentation.profile.myratings.MyRatingsActivity;
 import ch.beerpro.presentation.profile.mywishlist.WishlistActivity;
 import com.bumptech.glide.Glide;
@@ -63,7 +64,7 @@ public class ProfileFragment extends Fragment {
         model = ViewModelProviders.of(this).get(MainViewModel.class);
         model.getMyWishlist().observe(this, this::updateWishlistCount);
         model.getMyRatings().observe(this, this::updateRatingsCount);
-        model.getMyBeersUniqueCount().observe(this, this::updateMyBeersCount);
+        model.getMyBeers().observe(this, this::updateMyBeersCount);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -78,8 +79,8 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
-    private void updateMyBeersCount(int size) {
-        myBeersCount.setText(String.valueOf(size));
+    private void updateMyBeersCount(List<MyBeer> myBeers) {
+        myBeersCount.setText(String.valueOf(myBeers.size()));
     }
 
     @OnClick(R.id.myRatings)

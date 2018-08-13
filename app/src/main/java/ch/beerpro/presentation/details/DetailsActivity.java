@@ -103,7 +103,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
         model.getBeer().observe(this, this::updateBeer);
         model.getRatings().observe(this, this::updateRatings);
-        model.getWish().observe(this, this::updateWishlist);
+        model.getWish().observe(this, this::toggleWishlistView);
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
@@ -120,10 +120,21 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     @OnClick(R.id.actionsButton)
     public void showBottomSheetDialog() {
         View view = getLayoutInflater().inflate(R.layout.single_bottom_sheet_dialog, null);
-
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    private void toggleWishlistView(boolean enable, ToggleButton wishlist) {
+        if (enable) {
+            int color = getResources().getColor(R.color.colorPrimary);
+            setDrawableTint(wishlist, color);
+            wishlist.setChecked(true);
+        } else {
+            int color = getResources().getColor(android.R.color.darker_gray);
+            setDrawableTint(wishlist, color);
+            wishlist.setChecked(false);
+        }
     }
 
     private void updateBeer(Beer item) {
@@ -156,11 +167,11 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
          * We won't get an update from firestore when the wish is removed, so we need to reset the UI state ourselves.
          * */
         if (!wishlist.isChecked()) {
-            updateWishlist(null);
+            toggleWishlistView(null);
         }
     }
 
-    private void updateWishlist(Wish wish) {
+    private void toggleWishlistView(Wish wish) {
         if (wish != null) {
             int color = getResources().getColor(R.color.colorPrimary);
             setDrawableTint(wishlist, color);
