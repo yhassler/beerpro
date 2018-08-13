@@ -44,7 +44,7 @@ public class BeerManufacturersFragment extends Fragment {
         BeerManufacturersRecyclerViewAdapter adapter = new BeerManufacturersRecyclerViewAdapter(mListener);
 
         MainViewModel model = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        model.getBeerManufacturers().observe(getActivity(), adapter::submitList);
+        model.getBeerManufacturers().observe(this, adapter::submitList);
 
         recyclerView.setAdapter(adapter);
 

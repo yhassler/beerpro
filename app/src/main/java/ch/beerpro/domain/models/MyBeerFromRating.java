@@ -1,7 +1,5 @@
-package ch.beerpro.presentation.profile.mybeers.models;
+package ch.beerpro.domain.models;
 
-import ch.beerpro.domain.models.Beer;
-import ch.beerpro.domain.models.Rating;
 import lombok.Data;
 
 import java.util.Date;

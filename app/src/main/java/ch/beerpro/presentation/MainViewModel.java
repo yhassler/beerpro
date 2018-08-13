@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import ch.beerpro.data.repositories.*;
 import ch.beerpro.domain.models.Beer;
+import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
 import com.google.android.gms.tasks.Task;
 
 import java.util.List;
@@ -40,6 +40,9 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         myRatings = ratingsRepository.getMyRatings(currentUserId);
         myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings);
 
+        /*
+         * Set the current user id, which is used as input for the getMyWishlist and getMyRatings calls above.
+         * */
         currentUserId.setValue(getCurrentUser().getUid());
     }
 

@@ -1,6 +1,5 @@
 package ch.beerpro.presentation.profile.mybeers;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
-import ch.beerpro.domain.models.Rating;
-import ch.beerpro.domain.models.Wish;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromRating;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromWishlist;
+import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromRating;
+import ch.beerpro.domain.models.MyBeerFromWishlist;
 import ch.beerpro.presentation.utils.DrawableHelpers;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;

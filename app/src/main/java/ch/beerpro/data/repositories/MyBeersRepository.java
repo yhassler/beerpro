@@ -5,9 +5,9 @@ import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Entity;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromRating;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeerFromWishlist;
+import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromRating;
+import ch.beerpro.domain.models.MyBeerFromWishlist;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.*;

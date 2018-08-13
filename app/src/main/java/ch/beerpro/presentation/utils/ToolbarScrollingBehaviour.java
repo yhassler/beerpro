@@ -3,6 +3,7 @@ package ch.beerpro.presentation.utils;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
@@ -38,6 +39,11 @@ public class ToolbarScrollingBehaviour<V extends View> extends CoordinatorLayout
 
         int scrollY = target.getScrollY() + dy;
         float alpha = (scrollY - (toolbarHeight / 2f)) / (1.0f * toolbarHeight);
+
+        Log.i(TAG, "target.scrollY: " + target.getScrollY());
+        Log.i(TAG, "dy: " + dy);
+        Log.i(TAG, "ScrollY: " + scrollY);
+        Log.i(TAG, "Alpha: " + alpha);
 
         Resources resources = child.getResources();
 

@@ -2,7 +2,6 @@ package ch.beerpro.presentation.profile.mybeers;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
+import ch.beerpro.domain.models.MyBeer;
 
 import java.util.ArrayList;
 import java.util.List;

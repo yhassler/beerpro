@@ -8,7 +8,7 @@ import ch.beerpro.data.repositories.*;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
+import ch.beerpro.domain.models.MyBeer;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;

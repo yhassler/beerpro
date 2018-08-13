@@ -18,7 +18,7 @@ import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.MainViewModel;
 import ch.beerpro.presentation.profile.mybeers.MyBeersActivity;
-import ch.beerpro.presentation.profile.mybeers.models.MyBeer;
+import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.presentation.profile.myratings.MyRatingsActivity;
 import ch.beerpro.presentation.profile.mywishlist.WishlistActivity;
 import com.bumptech.glide.Glide;
