@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.presentation.explore.BeerCategoriesFragment;
 import ch.beerpro.presentation.explore.BeerManufacturersFragment;
@@ -21,21 +23,39 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+/**
+ * The {@link MainActivity} is the entry point for logged-in users (actually, users start at the
+ * {@link SplashScreenActivity}, but if they are still logged in they will get redirected to this activity.
+ * <p>
+ * The Activity has three tabs, each of which implemented by a fragment and held together by a {@link ViewPager}.
+ */
 public class MainActivity extends AppCompatActivity
         implements BeerCategoriesFragment.OnItemSelectedListener, BeerManufacturersFragment.OnItemSelectedListener {
+
+    /**
+     * We use ButterKnife's view injection instead of having to call findViewById repeatedly.
+     */
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+    @BindView(R.id.tablayout)
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
+        /*
+         * The following ceremony is need to have the app logo set as the home button.
+         * */
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setLogo(R.drawable.beer_glass_icon);
 
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        TabLayout tabLayout = findViewById(R.id.tablayout);
         setupViewPager(viewPager, tabLayout);
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -53,6 +73,11 @@ public class MainActivity extends AppCompatActivity
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_search_black_24dp);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_people_black_24dp);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_person_black_24dp);
+
+        /*
+         * We want to change the title of the activity depending on the selected fragment. We can do this by
+         * listening to the tabLayout's changes and setting the title accordingly:
+         * */
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
             @Override
@@ -101,11 +126,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBeerCategorySelected(String name) {
-
+        // TODO implement
     }
 
     @Override
     public void onBeerManufacturerSelected(String name) {
-
+        // TODO implement
     }
 }
