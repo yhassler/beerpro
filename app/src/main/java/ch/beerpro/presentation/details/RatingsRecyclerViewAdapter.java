@@ -1,5 +1,6 @@
 package ch.beerpro.presentation.details;
 
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Rating;
 import android.view.LayoutInflater;
@@ -89,6 +90,7 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
 
             if (item.getPhoto() != null) {
                 GlideApp.with(itemView).load(item.getPhoto()).into(photo);
+                photo.setVisibility(View.VISIBLE);
             } else {
                 GlideApp.with(itemView).clear(photo);
                 photo.setVisibility(View.GONE);

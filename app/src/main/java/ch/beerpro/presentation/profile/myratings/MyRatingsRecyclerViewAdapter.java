@@ -111,6 +111,7 @@ public class MyRatingsRecyclerViewAdapter
             if (item.getPhoto() != null) {
                 // Take a look at https://bumptech.github.io/glide/int/recyclerview.html
                 GlideApp.with(itemView).load(item.getPhoto()).into(photo);
+                photo.setVisibility(View.VISIBLE);
             } else {
                 GlideApp.with(itemView).clear(photo);
                 photo.setVisibility(View.GONE);
