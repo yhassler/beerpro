@@ -2,10 +2,10 @@ package ch.beerpro.presentation.explore;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
-import ch.beerpro.presentation.utils.GridSpacingItemDecoration;
 import ch.beerpro.presentation.MainViewModel;
+import ch.beerpro.presentation.utils.GridSpacingItemDecoration;
 
 
+/**
+ * This class is really similar to {@link BeerCategoriesFragment}, see the documentation there.
+ */
 public class BeerManufacturersFragment extends Fragment {
 
     @BindView(R.id.recyclerView)
@@ -25,6 +28,16 @@ public class BeerManufacturersFragment extends Fragment {
 
     public BeerManufacturersFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnItemSelectedListener) {
+            mListener = (OnItemSelectedListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -49,16 +62,6 @@ public class BeerManufacturersFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnItemSelectedListener) {
-            mListener = (OnItemSelectedListener) context;
-        } else {
-            throw new RuntimeException(context.toString() + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override

@@ -16,6 +16,9 @@ import ch.beerpro.presentation.utils.BackgroundImageProvider;
 import ch.beerpro.presentation.utils.StringDiffItemCallback;
 
 
+/**
+ * This class is really similar to {@link BeerCategoriesRecyclerViewAdapter} see the documentation there.
+ */
 public class BeerManufacturersRecyclerViewAdapter
         extends ListAdapter<String, BeerManufacturersRecyclerViewAdapter.ViewHolder> {
 
