@@ -23,7 +23,7 @@ public class BeersRepository {
             filtered.add(beer.getCategory());
         }
         String[] strings = filtered.toArray(new String[0]);
-        return Arrays.asList(strings).subList(0, 8);
+        return Arrays.asList(strings).subList(0, Math.min(8, strings.length));
     };
 
     private final static Function<List<Beer>, List<String>> mapBeersToManufacturers = (List<Beer> beers) -> {
