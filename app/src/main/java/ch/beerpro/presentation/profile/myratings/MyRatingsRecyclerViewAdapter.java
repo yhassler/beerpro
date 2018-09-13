@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.presentation.utils.EntityPairDiffItemCallback;
 import ch.beerpro.domain.models.*;
@@ -109,14 +110,14 @@ public class MyRatingsRecyclerViewAdapter
 
             if (item.getPhoto() != null) {
                 // Take a look at https://bumptech.github.io/glide/int/recyclerview.html
-                Glide.with(itemView).load(item.getPhoto()).into(photo);
+                GlideApp.with(itemView).load(item.getPhoto()).into(photo);
             } else {
-                Glide.with(itemView).clear(photo);
+                GlideApp.with(itemView).clear(photo);
                 photo.setVisibility(View.GONE);
             }
 
             authorName.setText(item.getUserName());
-            Glide.with(itemView).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
+            GlideApp.with(itemView).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
 
             numLikes.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getLikes().size()));
 

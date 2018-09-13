@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.presentation.explore.search.beers.SearchResultFragment.OnItemSelectedListener;
@@ -73,7 +74,7 @@ public class SearchResultRecyclerViewAdapter extends ListAdapter<Beer, SearchRes
             manufacturer.setText(item.getManufacturer());
             category.setText(item.getCategory());
             name.setText(item.getName());
-            Glide.with(itemView).load(item.getPhoto()).apply(new RequestOptions().override(240, 240).centerInside())
+            GlideApp.with(itemView).load(item.getPhoto()).apply(new RequestOptions().override(240, 240).centerInside())
                     .into(photo);
             ratingBar.setNumStars(5);
             ratingBar.setRating(item.getAvgRating());

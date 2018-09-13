@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import com.bumptech.glide.Glide;
@@ -101,7 +102,7 @@ public class CreateRatingActivity extends AppCompatActivity {
 
         if (user != null) {
             Uri photoUrl = user.getPhotoUrl();
-            Glide.with(this).load(photoUrl).apply(new RequestOptions().circleCrop()).into(avatar);
+            GlideApp.with(this).load(photoUrl).apply(new RequestOptions().circleCrop()).into(avatar);
         }
         if (model.getPhoto() != null) {
             photo.setImageURI(model.getPhoto());

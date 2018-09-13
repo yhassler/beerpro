@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
@@ -73,7 +74,7 @@ public class ProfileFragment extends Fragment {
             String name = user.getDisplayName();
             userProfileNameText.setText(name);
             Uri photoUrl = user.getPhotoUrl();
-            Glide.with(this).load(photoUrl).apply(new RequestOptions().circleCrop()).into(userProfileImageView);
+            GlideApp.with(this).load(photoUrl).apply(new RequestOptions().circleCrop()).into(userProfileImageView);
         }
 
         return rootView;

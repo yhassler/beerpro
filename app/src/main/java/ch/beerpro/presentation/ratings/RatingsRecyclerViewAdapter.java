@@ -1,5 +1,6 @@
 package ch.beerpro.presentation.ratings;
 
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.presentation.utils.EntityPairDiffItemCallback;
 import ch.beerpro.domain.models.Rating;
@@ -29,16 +32,18 @@ import static ch.beerpro.presentation.utils.DrawableHelpers.setDrawableTint;
 
 public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, RatingsRecyclerViewAdapter.ViewHolder> {
 
-    private static final String TAG = "RatingsRecyclerViewAdapter";
+    private static final String TAG = "RatingsRecyclerViewAdap";
 
     private static final DiffUtil.ItemCallback<Pair<Rating, Wish>> DIFF_CALLBACK = new EntityPairDiffItemCallback<>();
 
     private final OnRatingsItemInteractionListener listener;
+    private Fragment fragment;
     private final FirebaseUser user;
 
-    public RatingsRecyclerViewAdapter(OnRatingsItemInteractionListener listener, FirebaseUser user) {
+    public RatingsRecyclerViewAdapter(OnRatingsItemInteractionListener listener, Fragment fragment, FirebaseUser user) {
         super(DIFF_CALLBACK);
         this.listener = listener;
+        this.fragment = fragment;
         this.user = user;
     }
 
@@ -110,30 +115,31 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
 
             if (item.getPhoto() != null) {
                 // Take a look at https://bumptech.github.io/glide/int/recyclerview.html
-                Glide.with(itemView).load(item.getPhoto()).into(photo);
+                GlideApp.with(fragment).load(item.getPhoto()).into(photo);
+                photo.setVisibility(View.VISIBLE);
             } else {
-                Glide.with(itemView).clear(photo);
+                GlideApp.with(fragment).clear(photo);
                 photo.setVisibility(View.GONE);
             }
 
             authorName.setText(item.getUserName());
-            Glide.with(itemView).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
+            GlideApp.with(fragment).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
 
             numLikes.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getLikes().size()));
 
             if (item.getLikes().containsKey(user.getUid())) {
-                int color = itemView.getResources().getColor(R.color.colorPrimary);
+                int color = fragment.getResources().getColor(R.color.colorPrimary);
                 setDrawableTint(like, color);
             } else {
-                int color = itemView.getResources().getColor(android.R.color.darker_gray);
+                int color = fragment.getResources().getColor(android.R.color.darker_gray);
                 setDrawableTint(like, color);
             }
 
             if (wish != null) {
-                int color = itemView.getResources().getColor(R.color.colorPrimary);
+                int color = fragment.getResources().getColor(R.color.colorPrimary);
                 setDrawableTint(wishlist, color);
             } else {
-                int color = itemView.getResources().getColor(android.R.color.darker_gray);
+                int color = fragment.getResources().getColor(android.R.color.darker_gray);
                 setDrawableTint(wishlist, color);
             }
 

@@ -88,14 +88,14 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
             date.setText(formattedDate);
 
             if (item.getPhoto() != null) {
-                Glide.with(itemView).load(item.getPhoto()).into(photo);
+                GlideApp.with(itemView).load(item.getPhoto()).into(photo);
             } else {
-                Glide.with(itemView).clear(photo);
+                GlideApp.with(itemView).clear(photo);
                 photo.setVisibility(View.GONE);
             }
 
             authorName.setText(item.getUserName());
-            Glide.with(itemView).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
+            GlideApp.with(itemView).load(item.getUserPhoto()).apply(new RequestOptions().circleCrop()).into(avatar);
 
             numLikes.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getLikes().size()));
             if (item.getLikes().containsKey(user.getUid())) {

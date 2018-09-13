@@ -21,6 +21,7 @@ import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 
 import androidx.fragment.app.Fragment;
+import com.bumptech.glide.util.ViewPreloadSizeProvider;
 import lombok.val;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class RatingsFragment extends Fragment
         val layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RatingsRecyclerViewAdapter(this, model.getCurrentUser());
+        adapter = new RatingsRecyclerViewAdapter(this, this, model.getCurrentUser());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), layoutManager.getOrientation()));
 
         recyclerView.setAdapter(adapter);

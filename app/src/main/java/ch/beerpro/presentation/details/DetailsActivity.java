@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
@@ -142,7 +143,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         manufacturer.setText(item.getManufacturer());
         category.setText(item.getCategory());
         name.setText(item.getName());
-        Glide.with(this).load(item.getPhoto()).apply(new RequestOptions().override(120, 160).centerInside())
+        GlideApp.with(this).load(item.getPhoto()).apply(new RequestOptions().override(120, 160).centerInside())
                 .into(photo);
         ratingBar.setNumStars(5);
         ratingBar.setRating(item.getAvgRating());

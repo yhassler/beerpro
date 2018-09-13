@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.presentation.utils.EntityPairDiffItemCallback;
 import ch.beerpro.domain.models.Beer;
@@ -87,7 +88,7 @@ public class WishlistRecyclerViewAdapter extends ListAdapter<Pair<Wish, Beer>, W
             manufacturer.setText(item.getManufacturer());
             category.setText(item.getCategory());
             name.setText(item.getName());
-            Glide.with(itemView).load(item.getPhoto()).apply(new RequestOptions().override(240, 240).centerInside())
+            GlideApp.with(itemView).load(item.getPhoto()).apply(new RequestOptions().override(240, 240).centerInside())
                     .into(photo);
             ratingBar.setNumStars(5);
             ratingBar.setRating(item.getAvgRating());
