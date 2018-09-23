@@ -1,11 +1,11 @@
 /**
- * This app is sliced into three layers:
+ * This app is split into three layers:
  * <p>
  * - data
  * - domain
  * - presentation
  * <p>
- * The data package/layer holds the repositories that connect to the backend services that hold the data.
+ * The data package/layer holds the repositories that connect to the backend services that hold the data. Note that these are minimal implementations to support the presentation.
  * <p>
  * The domain package holds the models that the data and presentation packages exchange.
  * <p>

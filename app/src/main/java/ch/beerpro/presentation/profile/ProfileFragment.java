@@ -29,6 +29,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
+/**
+ * Because the profile view is not a whole activity but rendered as part of the MainActivity in a tab, we use a so-called fragment.
+ */
 public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
@@ -59,6 +62,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+
+        /* Fragments also have a layout file, this one is in res/layout/fragment_profile_screen.xml: */
         View rootView = inflater.inflate(R.layout.fragment_profile_screen, container, false);
         ButterKnife.bind(this, rootView);
 

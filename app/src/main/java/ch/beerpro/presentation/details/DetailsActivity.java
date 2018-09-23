@@ -126,18 +126,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         dialog.show();
     }
 
-    private void toggleWishlistView(boolean enable, ToggleButton wishlist) {
-        if (enable) {
-            int color = getResources().getColor(R.color.colorPrimary);
-            setDrawableTint(wishlist, color);
-            wishlist.setChecked(true);
-        } else {
-            int color = getResources().getColor(android.R.color.darker_gray);
-            setDrawableTint(wishlist, color);
-            wishlist.setChecked(false);
-        }
-    }
-
     private void updateBeer(Beer item) {
         name.setText(item.getName());
         manufacturer.setText(item.getManufacturer());

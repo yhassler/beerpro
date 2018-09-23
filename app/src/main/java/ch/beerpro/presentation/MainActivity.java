@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity
 
         setupViewPager(viewPager, tabLayout);
 
+        /*
+         * Just a placeholder for your own ideas...
+         * */
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show());

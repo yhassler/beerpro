@@ -10,8 +10,8 @@ android {
         applicationId "ch.beerpro"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 9
-        versionName "Alpha 9"
+        versionCode 10
+        versionName "Beta 1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -29,12 +29,12 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.0.0-rc02'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
     implementation 'com.google.firebase:firebase-storage:16.0.2'
-    implementation 'com.google.android.material:material:1.0.0-rc02'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.firebase:firebase-firestore:17.1.0'
     implementation 'com.firebaseui:firebase-ui-firestore:4.0.0'
 
@@ -46,8 +46,8 @@ dependencies {
         transitive = false
     }
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-rc02'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0-rc02'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.github.yalantis:ucrop:2.2.2-native'
     implementation 'com.github.tajchert:nammu:1.2.0'
     implementation 'com.github.jkwiecien:EasyImage:2.1.0'
