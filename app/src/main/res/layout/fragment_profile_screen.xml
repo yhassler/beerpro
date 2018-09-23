@@ -1,222 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.profile.ProfileFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.explore.ExploreFragment">
+    android:fillViewport="false">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="false">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/userProfileImageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:contentDescription="@string/todo"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/userProfileNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:text="Name"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0f5d4037" />
 
             <LinearLayout
+
+                android:id="@+id/myBeers"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/userProfileImageView"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:contentDescription="@string/todo"
-                    tools:src="@tools:sample/avatars" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/minimum_margin"
+                    app:srcCompat="@drawable/ic_bottle" />
 
                 <TextView
-                    android:id="@+id/userProfileNameText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Meine Biere" />
+
+
+                <TextView
+                    android:id="@+id/myBeersCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/default_margin"
-                    android:text="Name"
-                    android:textAllCaps="true"
-                    android:textStyle="bold" />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#0f5d4037" />
-
-                <LinearLayout
-
-                    android:id="@+id/myBeers"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/minimum_margin"
-                        android:layout_marginLeft="@dimen/minimum_margin"
-                        app:srcCompat="@drawable/ic_bottle" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="Meine Biere" />
-
-
-                    <TextView
-                        android:id="@+id/myBeersCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/default_margin"
-                        android:layout_marginRight="@dimen/default_margin"
-                        android:text="0" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#0f5d4037" />
-
-                <LinearLayout
-
-                    android:id="@+id/myRatings"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/minimum_margin"
-                        android:layout_marginLeft="@dimen/minimum_margin"
-                        app:srcCompat="@drawable/ic_star_brown_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="Bewertungen" />
-
-
-                    <TextView
-                        android:id="@+id/myRatingsCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/default_margin"
-                        android:layout_marginRight="@dimen/default_margin"
-                        android:text="0" />
-                </LinearLayout>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#0f5d4037" />
-
-                <LinearLayout
-
-                    android:id="@+id/myWishlist"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/minimum_margin"
-                        android:layout_marginLeft="@dimen/minimum_margin"
-                        app:srcCompat="@drawable/ic_bookmark_brown_24dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="Wunschliste" />
-
-
-                    <TextView
-                        android:id="@+id/myWishlistCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/default_margin"
-                        android:layout_marginRight="@dimen/default_margin"
-                        android:text="0" />
-                </LinearLayout>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#0f5d4037" />
-
-                <LinearLayout
-
-                    android:id="@+id/myFridge"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/minimum_margin"
-                        android:layout_marginLeft="@dimen/minimum_margin"
-                        app:srcCompat="@drawable/ic_refrigerator" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="Kühlschrank" />
-
-
-                    <TextView
-                        android:id="@+id/myFridgeCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/default_margin"
-                        android:layout_marginRight="@dimen/default_margin"
-                        android:text="0" />
-                </LinearLayout>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:text="0" />
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
-    </androidx.core.widget.NestedScrollView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0f5d4037" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+
+                android:id="@+id/myRatings"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/minimum_margin"
+                    app:srcCompat="@drawable/ic_star_brown_24dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Bewertungen" />
+
+
+                <TextView
+                    android:id="@+id/myRatingsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:text="0" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0f5d4037" />
+
+            <LinearLayout
+
+                android:id="@+id/myWishlist"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/minimum_margin"
+                    app:srcCompat="@drawable/ic_bookmark_brown_24dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Wunschliste" />
+
+
+                <TextView
+                    android:id="@+id/myWishlistCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:text="0" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#0f5d4037" />
+
+            <LinearLayout
+
+                android:id="@+id/myFridge"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/minimum_margin"
+                    app:srcCompat="@drawable/ic_refrigerator" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Kühlschrank" />
+
+
+                <TextView
+                    android:id="@+id/myFridgeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/default_margin"
+                    android:text="0" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.core.widget.NestedScrollView>
