@@ -36,17 +36,9 @@ public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
 
-    ImageView userProfileImageView;
+    private ImageView userProfileImageView;
 
-    TextView userProfileNameText;
-
-    TextView myBeersCount;
-
-    TextView myFridgeCount;
-
-    TextView myRatingsCount;
-
-    TextView myWishlistCount;
+    // TODO create attributes for all views that need to be accessed from the code
 
     private MainViewModel model;
 
@@ -60,27 +52,11 @@ public class ProfileFragment extends Fragment {
         /* Fragments also have a layout file, this one is in res/layout/fragment_profile_screen.xml: */
         View rootView = inflater.inflate(R.layout.fragment_profile_screen, container, false);
 
-        userProfileImageView = rootView.findViewById(R.id.userProfileImageView);
-        userProfileNameText = rootView.findViewById(R.id.userProfileNameText);
-        myBeersCount = rootView.findViewById(R.id.myBeersCount);
-        myFridgeCount = rootView.findViewById(R.id.myFridgeCount);
-        myRatingsCount = rootView.findViewById(R.id.myRatingsCount);
-        myWishlistCount = rootView.findViewById(R.id.myWishlistCount);
+        // TODO use rootView.findViewById to assign the attribute views
 
-        rootView.findViewById(R.id.myRatings).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MyRatingsActivity.class);
-            startActivity(intent);
-        });
 
-        rootView.findViewById(R.id.myWishlist).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WishlistActivity.class);
-            startActivity(intent);
-        });
+        // TODO set OnClickListeners to start activities. The Activities to start are MyRatingsActivity, WishlistActivity and MyBeersActivity.
 
-        rootView.findViewById(R.id.myBeers).setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MyBeersActivity.class);
-            startActivity(intent);
-        });
 
         model = ViewModelProviders.of(this).get(MainViewModel.class);
         model.getMyWishlist().observe(this, this::updateWishlistCount);
@@ -92,7 +68,8 @@ public class ProfileFragment extends Fragment {
         if (user != null) {
             // Name, email address, and profile photo Url
             String name = user.getDisplayName();
-            userProfileNameText.setText(name);
+            // TODO set user name
+
             Uri photoUrl = user.getPhotoUrl();
             GlideApp.with(this).load(photoUrl).apply(new RequestOptions().circleCrop()).into(userProfileImageView);
         }
@@ -101,14 +78,17 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateMyBeersCount(List<MyBeer> myBeers) {
-        myBeersCount.setText(String.valueOf(myBeers.size()));
+        // TODO set beer count text
+
     }
 
     private void updateRatingsCount(List<Rating> ratings) {
-        myRatingsCount.setText(String.valueOf(ratings.size()));
+        // TODO set ratings count text
+
     }
 
     private void updateWishlistCount(List<Wish> wishes) {
-        myWishlistCount.setText(String.valueOf(wishes.size()));
+        // TODO set wishlist count text
+
     }
 }
