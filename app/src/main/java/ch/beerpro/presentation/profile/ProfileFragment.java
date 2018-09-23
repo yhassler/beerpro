@@ -36,22 +36,16 @@ public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
 
-    @BindView(R.id.userProfileImageView)
     ImageView userProfileImageView;
 
-    @BindView(R.id.userProfileNameText)
     TextView userProfileNameText;
 
-    @BindView(R.id.myBeersCount)
     TextView myBeersCount;
 
-    @BindView(R.id.myFridgeCount)
     TextView myFridgeCount;
 
-    @BindView(R.id.myRatingsCount)
     TextView myRatingsCount;
 
-    @BindView(R.id.myWishlistCount)
     TextView myWishlistCount;
 
     private MainViewModel model;
@@ -65,7 +59,28 @@ public class ProfileFragment extends Fragment {
 
         /* Fragments also have a layout file, this one is in res/layout/fragment_profile_screen.xml: */
         View rootView = inflater.inflate(R.layout.fragment_profile_screen, container, false);
-        ButterKnife.bind(this, rootView);
+
+        userProfileImageView = rootView.findViewById(R.id.userProfileImageView);
+        userProfileNameText = rootView.findViewById(R.id.userProfileNameText);
+        myBeersCount = rootView.findViewById(R.id.myBeersCount);
+        myFridgeCount = rootView.findViewById(R.id.myFridgeCount);
+        myRatingsCount = rootView.findViewById(R.id.myRatingsCount);
+        myWishlistCount = rootView.findViewById(R.id.myWishlistCount);
+
+        rootView.findViewById(R.id.myRatings).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MyRatingsActivity.class);
+            startActivity(intent);
+        });
+
+        rootView.findViewById(R.id.myWishlist).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WishlistActivity.class);
+            startActivity(intent);
+        });
+
+        rootView.findViewById(R.id.myBeers).setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MyBeersActivity.class);
+            startActivity(intent);
+        });
 
         model = ViewModelProviders.of(this).get(MainViewModel.class);
         model.getMyWishlist().observe(this, this::updateWishlistCount);
@@ -89,24 +104,6 @@ public class ProfileFragment extends Fragment {
         myBeersCount.setText(String.valueOf(myBeers.size()));
     }
 
-    @OnClick(R.id.myRatings)
-    public void handleMyRatingsClick(View view) {
-        Intent intent = new Intent(getActivity(), MyRatingsActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.myWishlist)
-    public void handleMyWishlistClick(View view) {
-        Intent intent = new Intent(getActivity(), WishlistActivity.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.myBeers)
-    public void handleMyBeersClick(View view) {
-        Intent intent = new Intent(getActivity(), MyBeersActivity.class);
-        startActivity(intent);
-    }
-
     private void updateRatingsCount(List<Rating> ratings) {
         myRatingsCount.setText(String.valueOf(ratings.size()));
     }
@@ -114,5 +111,4 @@ public class ProfileFragment extends Fragment {
     private void updateWishlistCount(List<Wish> wishes) {
         myWishlistCount.setText(String.valueOf(wishes.size()));
     }
-
 }
