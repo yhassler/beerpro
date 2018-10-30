@@ -239,6 +239,19 @@
                                 android:layout_height="match_parent"
                                 android:background="#ffeeeeee" />
 
+                            <ToggleButton
+                                android:id="@+id/fridge"
+                                style="?android:attr/borderlessButtonStyle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:drawableTop="@drawable/ic_bookmark_brown_24dp"
+                                android:drawableTint="@android:color/darker_gray"
+                                android:textOff="Kühlschrank"
+                                android:textOn="Kühlschrank"
+                                android:textColor="@android:color/darker_gray"
+                                android:textSize="10sp" />
+
                             <Button
                                 android:id="@+id/button2"
                                 style="?android:attr/borderlessButtonStyle"
@@ -250,6 +263,10 @@
                                 android:text="Bier Teilen"
                                 android:textColor="@android:color/darker_gray"
                                 android:textSize="10sp" />
+
+
+
+
                         </LinearLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

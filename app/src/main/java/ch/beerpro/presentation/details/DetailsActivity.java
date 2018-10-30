@@ -25,6 +25,7 @@ import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
+import ch.beerpro.domain.models.FridgeContent;
 import ch.beerpro.presentation.details.createrating.CreateRatingActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -62,6 +63,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
     @BindView(R.id.wishlist)
     ToggleButton wishlist;
+
+    @BindView(R.id.fridge)
+    ToggleButton fridge;
 
     @BindView(R.id.manufacturer)
     TextView manufacturer;
@@ -105,6 +109,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         model.getBeer().observe(this, this::updateBeer);
         model.getRatings().observe(this, this::updateRatings);
         model.getWish().observe(this, this::toggleWishlistView);
+        model.getFridgeContent().observe(this, this::toggleFridgeView);
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
@@ -160,6 +165,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         }
     }
 
+
     private void toggleWishlistView(Wish wish) {
         if (wish != null) {
             int color = getResources().getColor(R.color.colorPrimary);
@@ -169,6 +175,30 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
             int color = getResources().getColor(android.R.color.darker_gray);
             setDrawableTint(wishlist, color);
             wishlist.setChecked(false);
+        }
+    }
+
+    @OnClick(R.id.fridge)
+    public void onFridgeClickedListener(View view) {
+        model.toggleItemInFridge(model.getBeer().getValue().getId());
+        /*
+         * We won't get an update from firestore when the wish is removed, so we need to reset the UI state ourselves.
+         * */
+        if (!fridge.isChecked()) {
+            toggleFridgeView(null);
+        }
+    }
+
+
+    private void toggleFridgeView(FridgeContent fridgeContent) {
+        if (fridgeContent != null) {
+            int color = getResources().getColor(R.color.colorPrimary);
+            setDrawableTint(fridge, color);
+            fridge.setChecked(true);
+        } else {
+            int color = getResources().getColor(android.R.color.darker_gray);
+            setDrawableTint(fridge, color);
+            fridge.setChecked(false);
         }
     }
 
