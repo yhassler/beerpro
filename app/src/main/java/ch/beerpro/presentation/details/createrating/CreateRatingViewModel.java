@@ -6,6 +6,8 @@ import ch.beerpro.domain.models.Rating;
 import android.net.Uri;
 import androidx.lifecycle.ViewModel;
 import ch.beerpro.domain.models.Beer;
+
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.tasks.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,7 +42,7 @@ public class CreateRatingViewModel extends ViewModel {
         this.photo = photo;
     }
 
-    public Task<Rating> saveRating(Beer item, float rating, String comment, Uri localPhotoUri) {
+    public Task<Rating> saveRating(Beer item, float rating, String comment, Uri localPhotoUri, String locName, String placeID) {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
@@ -58,7 +60,7 @@ public class CreateRatingViewModel extends ViewModel {
             }
 
             Rating newRating = new Rating(null, item.getId(), item.getName(), user.getUid(), user.getDisplayName(),
-                    user.getPhotoUrl().toString(), photoUrl, rating, comment, Collections.emptyMap(), new Date());
+                    user.getPhotoUrl().toString(), photoUrl, rating, comment, Collections.emptyMap(), new Date(), locName, placeID);
             Log.i(TAG, "Adding new rating: " + newRating.toString());
             return FirebaseFirestore.getInstance().collection("ratings").add(newRating);
 

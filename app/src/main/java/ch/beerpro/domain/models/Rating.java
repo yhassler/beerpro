@@ -1,11 +1,13 @@
 package ch.beerpro.domain.models;
 
 import com.google.firebase.firestore.Exclude;
+
+import java.util.Date;
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -35,4 +37,7 @@ public class Rating implements Entity {
      */
     private Map<String, Boolean> likes;
     private Date creationDate;
+
+    private String placeName;
+    private String placeID;
 }

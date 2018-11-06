@@ -81,6 +81,9 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
         @BindView(R.id.date)
         TextView date;
 
+        @BindView(R.id.location)
+        TextView location;
+
         @BindView(R.id.numLikes)
         TextView numLikes;
 
@@ -104,6 +107,11 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
         void bind(Rating item, Wish wish, OnRatingsItemInteractionListener listener) {
             // TODO This code is almost the same in MyBeersRecyclerViewAdapter.. could be simplified
             // with databinding!
+            if(item.getBeerId() == null)
+            {
+                return;
+            }
+
             beerName.setText(item.getBeerName());
             comment.setText(item.getComment());
 
@@ -112,6 +120,8 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
             String formattedDate =
                     DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(item.getCreationDate());
             date.setText(formattedDate);
+
+            location.setText(item.getPlaceName() == null ? "" : item.getPlaceName());
 
             if (item.getPhoto() != null) {
                 // Take a look at https://bumptech.github.io/glide/int/recyclerview.html

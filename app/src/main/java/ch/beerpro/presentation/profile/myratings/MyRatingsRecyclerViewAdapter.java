@@ -78,6 +78,9 @@ public class MyRatingsRecyclerViewAdapter
         @BindView(R.id.date)
         TextView date;
 
+        @BindView(R.id.location)
+        TextView location;
+
         @BindView(R.id.numLikes)
         TextView numLikes;
 
@@ -107,6 +110,8 @@ public class MyRatingsRecyclerViewAdapter
             String formattedDate =
                     DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(item.getCreationDate());
             date.setText(formattedDate);
+
+            location.setText(item.getPlaceName() == null ? "" : item.getPlaceName());
 
             if (item.getPhoto() != null) {
                 // Take a look at https://bumptech.github.io/glide/int/recyclerview.html

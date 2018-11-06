@@ -59,6 +59,9 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
         @BindView(R.id.ratingBar)
         RatingBar ratingBar;
 
+        @BindView(R.id.location)
+        TextView location;
+
         @BindView(R.id.authorName)
         TextView authorName;
 
@@ -87,6 +90,8 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Rating, RatingsRecyc
             String formattedDate =
                     DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(item.getCreationDate());
             date.setText(formattedDate);
+
+            location.setText(item.getPlaceName() == null ? "" : item.getPlaceName());
 
             if (item.getPhoto() != null) {
                 GlideApp.with(itemView).load(item.getPhoto()).into(photo);
